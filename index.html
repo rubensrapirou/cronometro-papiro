@@ -7,7 +7,6 @@
 <link rel="icon" href="logo.png" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
 <style>
-/* O mesmo estilo preto dourado que te passei */
 :root {
   --bg1: #000000;
   --bg2: #191919;
@@ -17,20 +16,123 @@
   --danger: #ee663f;
   --muted: rgba(255, 255, 255, 0.08);
 }
-/* restantes dos estilos iguais ao enviado anteriormente */
+/* Seu CSS completo conforme já detalhado antes */
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at top center, var(--bg2), var(--bg1) 85%);
+  color: #fffbe8;
+  min-height: 100vh;
+  font-family: 'Inter',sans-serif;
+  display: flex; align-items: center; justify-content: center;
+}
+.container {
+  width: 1050px;
+  max-width: 99%;
+  margin: 40px auto;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 30px;
+}
+.card {
+  background: rgba(28,28,28,0.95);
+  border-radius: 22px;
+  padding: 32px 26px 24px 26px;
+  box-shadow: 0 4px 34px 0 #231c102e, 0 0 0 2px var(--accent);
+  position: relative;
+}
+.logo { width: 140px; display:block; margin:0 auto 4px auto; filter:drop-shadow(0 0 4px var(--accent)); }
+h1.title {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 2.4rem;
+  text-align: center; color: var(--accent);
+  margin: 0 0 8px 0;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 18px var(--accent), 0 0 8px #000;
+}
+.subtitle {
+  text-align: center;
+  color: #fff7ca;
+  font-size: 1.1rem;
+  margin-bottom: 22px;
+}
+/* continue o restante do CSS conforme exemplos anteriores */
 </style>
 </head>
 <body>
 <div class="container">
-  <!-- seu HTML dos cards aqui conforme acima, com os ids corretos para mainRanking, sideRanking, etc. -->
+  <div class="card">
+    <img src="logo.png" class="logo" alt="Logo" />
+    <h1 class="title">VOCÊ SARGENTO</h1>
+    <div class="subtitle">Disciplina • Constância • Vitória</div>
+    <div id="authBox">
+      <label for="username">Usuário</label>
+      <input id="username" type="text" placeholder="Digite seu usuário" autocomplete="off" />
+      <label for="password">Senha</label>
+      <input id="password" type="password" placeholder="Digite sua senha" autocomplete="off" />
+      <div style="display:flex;gap:11px;margin-top:10px">
+        <button id="loginBtn" class="btn btn-primary">Entrar</button>
+        <button id="registerBtn" class="btn btn-ghost">Criar conta</button>
+      </div>
+      <div style="margin-top:13px">
+        <button id="guestBtn" class="btn btn-ghost" style="width:100%">Estudar como convidado</button>
+      </div>
+    </div>
+    <div id="profileBox" style="display:none">
+      <div class="streak" id="streak">📅 Constância: 0 dias</div>
+      <div style="text-align:center;margin-bottom:10px">Bem-vindo, <strong id="welcomeName"></strong></div>
+      <button id="logoutBtn" class="btn btn-ghost" style="width:100%">Sair</button>
+      <div class="meta-box">
+        <div class="small">Meta diária</div>
+        <div id="metaText" style="font-weight:700;margin-top:6px;">Nenhuma</div>
+      </div>
+      <div style="margin-top:10px">
+        <button id="setMetaBtn" class="btn btn-primary" style="width:100%">Definir meta</button>
+      </div>
+    </div>
+    <div style="margin-top:19px">
+      <div class="small">🏆 Ranking Top 10</div>
+      <div id="sideRanking" class="ranking"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="timer-area">
+      <div class="circle" id="circle">
+        <div class="inner">
+          <div class="timebig" id="timeDisplay">00:00:00</div>
+          <div class="progress"><i id="progressFill"></i></div>
+          <div style="margin-top:8px;display:flex;gap:7px;flex-wrap:wrap;justify-content:center;">
+            <input id="hours" type="number" min="0" max="23" placeholder="h" />
+            <input id="minutes" type="number" min="0" max="59" placeholder="min" />
+            <input id="seconds" type="number" min="0" max="59" placeholder="s" />
+          </div>
+          <div class="controls" style="margin-top:10px">
+            <button id="startBtn" class="btn btn-success">Iniciar</button>
+            <button id="pauseBtn" class="btn btn-warning">Pausar</button>
+            <button id="resetBtn" class="btn btn-danger">Resetar</button>
+          </div>
+          <div id="motivation" class="small" style="margin-top:14px;text-align:center">Foco total, Sargento!</div>
+        </div>
+      </div>
+      <div style="flex:1;min-width:230px">
+        <div class="card" style="padding:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <div style="font-weight:700">Ranking — Top 10</div>
+            <div class="small">Total: <span id="totalUsers">0</span></div>
+          </div>
+          <div id="mainRanking" class="ranking ranking-main"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script type="module">
-// IMPORTS obrigatoriamente no topo
+// Imports Firebase no topo do script
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
 import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
-// Configuração Firebase
+// Config firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBniRu4I1epvafxttRsdyfDIpUGT63ytsU",
   authDomain: "voce-sargento.firebaseapp.com",
@@ -40,16 +142,14 @@ const firebaseConfig = {
   appId: "1:144820811065:web:fe0f99e9f57947722724e8",
   measurementId: "G-5F4EXDDPD0"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 document.addEventListener("DOMContentLoaded", () => {
-
-  // Selector helper
+  // Utility para buscar element por id
   const $ = id => document.getElementById(id);
 
-  // Elementos e variáveis
+  // Buscando elementos do DOM
   const loginBtn = $('loginBtn'), registerBtn = $('registerBtn'), guestBtn = $('guestBtn');
   const logoutBtn = $('logoutBtn'), setMetaBtn = $('setMetaBtn');
   const authBox = $('authBox'), profileBox = $('profileBox');
@@ -58,40 +158,43 @@ document.addEventListener("DOMContentLoaded", () => {
   const timeDisplay = $('timeDisplay'), startBtn = $('startBtn'), pauseBtn = $('pauseBtn'), resetBtn = $('resetBtn');
   const hoursInput = $('hours'), minutesInput = $('minutes'), secondsInput = $('seconds');
   const progressFill = $('progressFill'), mainRanking = $('mainRanking'), sideRanking = $('sideRanking'), totalUsers = $('totalUsers');
+
+  // Variáveis de estado
   let currentUser = null, interval = null, running = false, totalSeconds = 0, remaining = 0;
 
-  // Hash de senha
+  // Função para hash sha256 da senha
   async function hashPassword(pw) {
     const enc = new TextEncoder();
     const hashBuffer = await crypto.subtle.digest('SHA-256', enc.encode(pw));
-    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2,'0')).join('');
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
   }
 
-  // Funções de login, cadastro, exibição, controle de cronometro e ranking
+  // Criar conta
   async function registerUser() {
     const username = usernameInput.value.trim().toLowerCase();
     const password = passwordInput.value;
-    if (!username) return alert('Digite um usuário');
-    const ref = doc(db, 'users', username);
+    if (!username) return alert("Digite um usuário");
+    const ref = doc(db, "users", username);
     const snap = await getDoc(ref);
-    if(snap.exists()) return alert('Usuário já existe');
+    if (snap.exists()) return alert("Usuário já existe");
     const pwHash = await hashPassword(password);
-    await setDoc(ref, {username, pwHash, streak:0, lastStudy:null, sessions:0});
-    alert('Conta criada. Faça login.');
+    await setDoc(ref, { username, pwHash, streak: 0, lastStudy: null, sessions: 0 });
+    alert("Conta criada. Faça login.");
   }
 
+  // Login
   async function loginUser() {
     const username = usernameInput.value.trim().toLowerCase();
     const password = passwordInput.value;
-    if(!username) return alert('Digite usuário');
-    const ref = doc(db, 'users', username);
+    if (!username) return alert("Digite usuário");
+    const ref = doc(db, "users", username);
     const snap = await getDoc(ref);
-    if(!snap.exists()) return alert('Usuário não encontrado.');
+    if (!snap.exists()) return alert("Usuário não encontrado.");
     const data = snap.data();
     const hash = await hashPassword(password);
-    if(hash !== data.pwHash) return alert('Senha incorreta');
-    currentUser = {username, ...data};
-    localStorage.setItem('vs_user', username);
+    if (hash !== data.pwHash) return alert("Senha incorreta");
+    currentUser = { username, ...data };
+    localStorage.setItem("vs_user", username);
     showProfile();
     fetchRanking();
   }
@@ -100,60 +203,66 @@ document.addEventListener("DOMContentLoaded", () => {
   registerBtn.onclick = registerUser;
   guestBtn.onclick = () => {
     currentUser = null;
-    localStorage.removeItem('vs_user');
-    authBox.style.display = 'none';
-    profileBox.style.display = 'none';
+    localStorage.removeItem("vs_user");
+    authBox.style.display = "none";
+    profileBox.style.display = "none";
     fetchRanking();
   };
   logoutBtn.onclick = () => {
     currentUser = null;
-    localStorage.removeItem('vs_user');
-    authBox.style.display = 'block';
-    profileBox.style.display = 'none';
+    localStorage.removeItem("vs_user");
+    authBox.style.display = "block";
+    profileBox.style.display = "none";
   };
 
+  // Mostrar perfil após login
   function showProfile() {
-    authBox.style.display = 'none';
-    profileBox.style.display = 'block';
+    authBox.style.display = "none";
+    profileBox.style.display = "block";
     welcomeName.textContent = currentUser.username;
-    streakEl.textContent = '📅 Constância: '+(currentUser.streak || 0)+' dias';
+    streakEl.textContent = "📅 Constância: " + (currentUser.streak || 0) + " dias";
   }
 
+  // Formatar tempo para display hh:mm:ss
   function formatTime(sec) {
-    const h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60), s = sec%60;
-    return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    const h = Math.floor(sec / 3600),
+      m = Math.floor((sec % 3600) / 60),
+      s = sec % 60;
+    return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
   }
 
+  // Iniciar cronômetro
   startBtn.onclick = () => {
-    if(running) return;
-    const h = parseInt(hoursInput.value) || 0;
-    const m = parseInt(minutesInput.value) || 0;
-    const s = parseInt(secondsInput.value) || 0;
-    totalSeconds = h*3600 + m*60 + s;
-    if(totalSeconds <= 0) return alert('Defina um tempo válido');
+    if (running) return;
+    const h = parseInt(hoursInput.value) || 0,
+      m = parseInt(minutesInput.value) || 0,
+      s = parseInt(secondsInput.value) || 0;
+    totalSeconds = h * 3600 + m * 60 + s;
+    if (totalSeconds <= 0) return alert("Defina um tempo válido");
     remaining = totalSeconds;
     running = true;
     interval = setInterval(async () => {
       remaining--;
-      progressFill.style.width = `${(1 - remaining/totalSeconds)*100}%`;
+      progressFill.style.width = `${((totalSeconds - remaining) / totalSeconds) * 100}%`;
       timeDisplay.textContent = formatTime(remaining);
-      if(remaining <= 0) {
+      if (remaining <= 0) {
         clearInterval(interval);
         running = false;
-        alert('Sessão concluída!');
-        if(currentUser) {
-          const ref = doc(db, 'users', currentUser.username);
+        alert("Sessão concluída!");
+        if (currentUser) {
+          const ref = doc(db, "users", currentUser.username);
           const snap = await getDoc(ref);
           const data = snap.data();
           let streak = data.streak || 0;
           const today = new Date().toDateString();
           const last = data.lastStudy ? new Date(data.lastStudy).toDateString() : null;
-          if(last === today) return;
-          if(last) {
-            const diff = Math.round((new Date(today) - new Date(last)) / (1000*60*60*24));
-            if(diff === 1) streak++; else streak = 1;
+          if (last === today) return;
+          if (last) {
+            const diff = Math.round((new Date(today) - new Date(last)) / (1000 * 60 * 60 * 24));
+            if (diff === 1) streak++;
+            else streak = 1;
           } else streak = 1;
-          await updateDoc(ref, {streak, lastStudy: new Date().toISOString(), sessions: (data.sessions || 0)+1});
+          await updateDoc(ref, { streak, lastStudy: new Date().toISOString(), sessions: (data.sessions || 0) + 1 });
           fetchRanking();
           showProfile();
         }
@@ -162,39 +271,39 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   pauseBtn.onclick = () => {
-    if(!running) return;
+    if (!running) return;
     clearInterval(interval);
     running = false;
   };
   resetBtn.onclick = () => {
     clearInterval(interval);
     running = false;
-    progressFill.style.width = '0%';
-    timeDisplay.textContent = '00:00:00';
+    progressFill.style.width = "0%";
+    timeDisplay.textContent = "00:00:00";
   };
 
+  // Buscar ranking
   async function fetchRanking() {
-    const q = query(collection(db, 'users'), orderBy('streak', 'desc'), limit(50));
+    const q = query(collection(db, "users"), orderBy("streak", "desc"), limit(50));
     const snaps = await getDocs(q);
     let list = [];
-    snaps.forEach(s => {
+    snaps.forEach((s) => {
       const d = s.data();
-      list.push({username: d.username || s.id, streak: d.streak || 0, sessions: d.sessions || 0});
+      list.push({ username: d.username || s.id, streak: d.streak || 0, sessions: d.sessions || 0 });
     });
     totalUsers.textContent = list.length;
-    mainRanking.innerHTML = '';
-    sideRanking.innerHTML = '';
-    list.slice(0,10).forEach((u, idx) => {
-      const div = document.createElement('div');
-      div.className = 'rank-item';
-      div.innerHTML = `<div><strong>${idx+1}. ${u.username}</strong><div class='small'>${u.sessions} sessões</div></div><div style='font-weight:700'>${u.streak} dias</div>`;
+    mainRanking.innerHTML = "";
+    sideRanking.innerHTML = "";
+    list.slice(0, 10).forEach((u, idx) => {
+      const div = document.createElement("div");
+      div.className = "rank-item";
+      div.innerHTML = `<div><strong>${idx + 1}. ${u.username}</strong><div class='small'>${u.sessions} sessões</div></div><div style='font-weight:700'>${u.streak} dias</div>`;
       mainRanking.appendChild(div);
       sideRanking.appendChild(div.cloneNode(true));
     });
   }
   fetchRanking();
   setInterval(fetchRanking, 20000);
-
 });
 </script>
 </body>
