@@ -1,1 +1,1 @@
-Coloque sua logo como logo.png na raiz do site.
+1) Verifique Firestore em modo teste. 2) Substitua logo.png. 3) Faça upload para o repositório e ative GitHub Pages.
