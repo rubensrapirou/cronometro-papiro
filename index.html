@@ -8,12 +8,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg1: #02040a;
-  --bg2: #07152a;
-  --accent: #00bfff;
-  --success: #00ffb3;
-  --warning: #ffcc00;
-  --danger: #ff4d4d;
+  --bg1: #1e1f14;          /* verde-escuro/terra para fundo */
+  --bg2: #3b4421;          /* verde musgo escuro para gradiente */
+  --accent: #a7ad5a;       /* verde oliva claro para destaques */
+  --success: #d9db70;      /* amarelo esverdeado para sucesso */
+  --warning: #c28e22;      /* amarelo mostarda para avisos */
+  --danger: #9c3f13;       /* laranja queimado para erros */
   --muted: rgba(255,255,255,0.1);
 }
 * { box-sizing: border-box; font-family: 'Inter', sans-serif; transition: all 0.2s ease; }
@@ -138,8 +138,8 @@ input {
     <div class="subtitle">Disciplina • Constância • Vitória</div>
 
     <div id="authBox">
-      <label>Usuário</label><input id="username" type="text" placeholder="ex: futurosargento" value="futurosargento">
-      <label>Senha</label><input id="password" type="password" placeholder="senha" value="1234">
+      <label>Usuário</label><input id="username" type="text" placeholder="ex: futurosargento" value="">
+      <label>Senha</label><input id="password" type="password" placeholder="senha" value="">
       <div style="display:flex;gap:8px;margin-top:6px">
         <button id="loginBtn" class="btn btn-primary">Entrar</button>
         <button id="registerBtn" class="btn btn-ghost">Criar conta</button>
