@@ -1,370 +1,149 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>VOCÊ SARGENTO — Elite</title>
-<link rel="icon" href="logo.png">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg1:#05060a; --bg2:#08121a; --accent:#d4af37; --card:#0f1720; --muted:rgba(255,255,255,0.08);
-  }
-  *{box-sizing:border-box;font-family:Inter,system-ui,Arial;}
-  body{margin:0;min-height:100vh;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:#eaeaea;display:flex;align-items:center;justify-content:center;padding:28px}
-  .container{width:1100px;max-width:98%;display:grid;grid-template-columns:380px 1fr;gap:22px;align-items:start}
-  .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:12px;padding:18px;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
-  .logo{width:150px;display:block;margin:6px auto}
-  h1.title{text-align:center;color:var(--accent);font-family:Orbitron,system-ui;margin:8px 0 4px}
-  .subtitle{text-align:center;color:rgba(255,255,255,0.7);margin-bottom:14px}
-  .muted{color:rgba(255,255,255,0.65);font-size:13px}
-  label{display:block;font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:6px}
-  input,select{width:100%;padding:10px;border-radius:8px;border:1px solid var(--muted);background:transparent;color:inherit;margin-bottom:8px}
-  .btn{background:linear-gradient(90deg,var(--accent),#ffd27a);border:none;color:#111;padding:10px 12px;border-radius:8px;font-weight:700;cursor:pointer}
-  .btn.ghost{background:transparent;border:1px solid var(--muted);color:#fff}
-  .left-col{display:flex;flex-direction:column;gap:12px}
-  .streak{font-weight:700;color:var(--accent);text-align:center}
-  .meta-box{background:linear-gradient(180deg,#071018,#081124);padding:12px;border-radius:8px;text-align:center}
-  .timer-area{display:flex;gap:18px;align-items:flex-start}
-  .circle{width:360px;height:360px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:conic-gradient(var(--accent) 0deg, rgba(255,255,255,0.04) 0deg);box-shadow:0 8px 30px rgba(0,0,0,0.6)}
-  .inner{width:320px;height:320px;border-radius:50%;background:linear-gradient(180deg,#08121a,#0b1722);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px}
-  .timebig{font-size:3rem;font-weight:800;letter-spacing:1px;color:#fff}
-  .controls{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;justify-content:center}
-  .progress{width:280px;height:12px;background:rgba(255,255,255,0.06);border-radius:8px;margin-top:10px;overflow:hidden}
-  .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#ffd27a);width:0%}
-  .ranking{max-height:380px;overflow:auto;padding:6px;margin-top:8px}
-  .rank-item{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:8px;margin-bottom:6px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border:1px solid rgba(255,255,255,0.02)}
-  .medal{font-weight:800;color:var(--accent);margin-right:8px}
-  .user-row{display:flex;align-items:center;gap:10px}
-  .small{font-size:13px;color:rgba(255,255,255,0.75)}
-  .history{max-height:150px;overflow:auto;margin-top:8px}
-  @media (max-width:980px){.container{grid-template-columns:1fr}.timer-area{flex-direction:column;align-items:center}.circle{width:300px;height:300px}.inner{width:260px;height:260px}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Você Sargento - Cronômetro de Estudos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0e0e0e;
+      color: #f0f0f0;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    img.logo {
+      width: 160px;
+      margin-bottom: 10px;
+    }
+    .card {
+      background-color: #1a1a1a;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(255,215,0,0.2);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+    button {
+      background-color: #d4af37;
+      border: none;
+      color: #000;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #f0c14b;
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #555;
+      background-color: #111;
+      color: #f0f0f0;
+      text-align: center;
+    }
+    #app { display: none; }
+    .timer {
+      font-size: 3rem;
+      margin-top: 20px;
+    }
+    .message {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #d4af37;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="left-col card">
-      <img src="logo.png" class="logo" alt="Logo">
-      <h1 class="title">VOCÊ SARGENTO</h1>
-      <div class="subtitle">Disciplina. Constância. Vitória.</div>
-
-      <div id="authBox">
-        <div class="muted">Login simples (nome + senha)</div>
-        <label>Usuário</label><input id="username" type="text" placeholder="ex: micaelrubens">
-        <label>Senha</label><input id="password" type="password" placeholder="senha">
-        <div style="display:flex;gap:8px;margin-top:6px">
-          <button id="loginBtn" class="btn">Entrar</button>
-          <button id="registerBtn" class="btn ghost">Criar conta</button>
-        </div>
-        <div style="margin-top:10px;display:flex;gap:8px">
-          <button id="guestBtn" class="btn ghost">Estudar como convidado</button>
-        </div>
-        <div class="muted" style="margin-top:12px">Sem servidor — dados salvos no Firebase. Faça login para salvar sua constância e entrar no ranking.</div>
-      </div>
-
-      <div id="profileBox" style="display:none">
-        <div class="streak" id="streak">📅 Constância: 0 dias</div>
-        <div class="muted" style="text-align:center;margin-top:8px">Conectado como <strong id="welcomeName"></strong></div>
-        <div style="display:flex;gap:8px;margin-top:10px">
-          <button id="logoutBtn" class="btn ghost">Sair</button>
-          <button id="setMetaBtn" class="btn">Definir meta</button>
-        </div>
-        <div class="meta-box" style="margin-top:12px">
-          <div class="small">Meta diária</div>
-          <div id="metaText" style="font-weight:700;margin-top:6px">Nenhuma</div>
-          <div class="small" style="margin-top:8px">Total sessões: <span id="sessions">0</span></div>
-        </div>
-        <div style="margin-top:12px">
-          <div class="small">Últimas sessões</div>
-          <div id="history" class="history"></div>
-        </div>
-      </div>
-
-      <div style="margin-top:12px">
-        <div class="small">Ranking rápido — Top 10</div>
-        <div id="sideRanking" class="ranking"></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="timer-area">
-        <div class="circle" id="circle"><div class="inner">
-          <div class="timebig" id="timeDisplay">00:00:00</div>
-          <div class="progress" id="progressBar" style="display:none"><i id="progressFill"></i></div>
-          <div class="controls" style="margin-top:12px">
-            <input id="hours" type="number" min="0" max="23" placeholder="h" style="width:70px">
-            <input id="minutes" type="number" min="0" max="59" placeholder="min" style="width:70px">
-            <input id="seconds" type="number" min="0" max="59" placeholder="s" style="width:70px">
-          </div>
-          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
-            <button id="startBtn" class="btn">Iniciar</button>
-            <button id="pauseBtn" class="btn ghost">Pausar</button>
-            <button id="resetBtn" class="btn ghost">Resetar</button>
-          </div>
-          <div id="motivation" class="small" style="margin-top:12px">Vamos com foco, Sargento!</div>
-        </div></div>
-
-        <div style="flex:1;margin-left:18px;min-width:260px">
-          <div class="card" style="padding:12px">
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <div style="font-weight:700">Ranking — Top 10</div>
-              <div class="small">Total: <span id="totalUsers">0</span></div>
-            </div>
-            <div id="mainRanking" class="ranking" style="margin-top:8px"></div>
-            <div style="margin-top:8px" class="muted">* Ranking atualizado automaticamente</div>
-          </div>
-        </div>
-      </div>
-
-      <div style="margin-top:14px" class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-          <div style="font-weight:700">Histórico de sessões</div>
-          <div class="small">Visível quando logado</div>
-        </div>
-        <div id="historyList" class="history muted"></div>
-      </div>
-    </div>
+  <img src="logo.png" alt="Logo" class="logo">
+  <div id="login" class="card">
+    <h2>VOCÊ SARGENTO</h2>
+    <input type="text" id="nome" placeholder="Seu nome">
+    <input type="password" id="senha" placeholder="Senha">
+    <button onclick="login()">Entrar</button>
+    <br><br>
+    <button onclick="modoConvidado()">Estudar como convidado</button>
   </div>
 
-<script type="module">
-// Firebase config injected
-const firebaseConfig = {"apiKey": "AIzaSyBniRu4I1epvafxttRsdyfDIpUGT63ytsU", "authDomain": "voce-sargento.firebaseapp.com", "projectId": "voce-sargento", "storageBucket": "voce-sargento.firebasestorage.app", "messagingSenderId": "144820811065", "appId": "1:144820811065:web:fe0f99e9f57947722724e8", "measurementId": "G-5F4EXDDPD0"};
+  <div id="app" class="card">
+    <h2 id="bemvindo"></h2>
+    <div class="timer" id="timer">00:00:00</div>
+    <button onclick="iniciar()">Iniciar</button>
+    <button onclick="pausar()">Pausar</button>
+    <button onclick="zerar()">Zerar</button>
+    <div class="message" id="mensagem"></div>
+  </div>
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-import { getFirestore, collection, doc, getDoc, setDoc, updateDoc, getDocs, query, orderBy, limit, serverTimestamp, addDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+  <script>
+    let segundos = 0, timer = null, modo = "convidado";
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-// short helpers
-const $ = id => document.getElementById(id);
-const loginBtn = $('loginBtn'), registerBtn = $('registerBtn'), guestBtn = $('guestBtn');
-const logoutBtn = $('logoutBtn'), setMetaBtn = $('setMetaBtn');
-const authBox = $('authBox'), profileBox = $('profileBox');
-const usernameInput = $('username'), passwordInput = $('password');
-const welcomeName = $('welcomeName'), streakEl = $('streak'), metaText = $('metaText'), sessionsEl = $('sessions');
-const timeDisplay = $('timeDisplay'), startBtn = $('startBtn'), pauseBtn = $('pauseBtn'), resetBtn = $('resetBtn');
-const hoursInput = $('hours'), minutesInput = $('minutes'), secondsInput = $('seconds');
-const progressBar = $('progressBar'), progressFill = $('progressFill');
-const mainRanking = $('mainRanking'), sideRanking = $('sideRanking'), totalUsers = $('totalUsers');
-const historyDiv = $('history'), historyList = $('historyList'), motivation = $('motivation');
-
-let currentUser = null; // { username, ... }
-let interval = null, running = false, totalSeconds = 0, remaining = 0;
-
-// password hashing
-async function hashPassword(pw) {
-  const enc = new TextEncoder();
-  const hashBuffer = await crypto.subtle.digest('SHA-256', enc.encode(pw));
-  const arr = Array.from(new Uint8Array(hashBuffer));
-  return arr.map(b => b.toString(16).padStart(2,'0')).join('');
-}
-
-// AUTH
-async function registerUser() {
-  const username = usernameInput.value.trim().toLowerCase();
-  const password = passwordInput.value;
-  if (!username) return alert('Digite um usuário');
-  const ref = doc(db,'users',username);
-  const snap = await getDoc(ref);
-  if (snap.exists()) return alert('Usuário já existe');
-  const pwHash = await hashPassword(password);
-  await setDoc(ref, { username, pwHash, streak:0, lastStudy:null, sessions:0, createdAt: serverTimestamp() });
-  alert('Conta criada. Faça login.');
-}
-
-async function loginUser() {
-  const username = usernameInput.value.trim().toLowerCase();
-  const password = passwordInput.value;
-  if (!username) return alert('Digite usuário');
-  const ref = doc(db,'users',username);
-  const snap = await getDoc(ref);
-  if (!snap.exists()) return alert('Usuário não encontrado');
-  const data = snap.data();
-  const hash = await hashPassword(password);
-  if (hash !== data.pwHash) return alert('Senha incorreta');
-  currentUser = { username, ...data };
-  localStorage.setItem('vs_user', username);
-  showProfile();
-  await loadUserData();
-  fetchRanking();
-  loadHistory();
-}
-
-loginBtn.addEventListener('click', loginUser);
-registerBtn.addEventListener('click', registerUser);
-
-// guest mode
-guestBtn.addEventListener('click', () => {
-  currentUser = null;
-  localStorage.removeItem('vs_user');
-  showGuestUI();
-  fetchRanking();
-});
-
-function showGuestUI() {
-  authBox.style.display = 'none';
-  profileBox.style.display = 'none';
-  welcomeName.textContent = 'Convidado';
-  streakEl.textContent = '📅 Constância: —';
-  metaText.textContent = 'Nenhuma';
-}
-
-// show profile UI
-function showProfile() {
-  authBox.style.display = 'none';
-  profileBox.style.display = 'block';
-  welcomeName.textContent = currentUser.username;
-  streakEl.textContent = '📅 Constância: ' + (currentUser.streak||0) + ' dias';
-  metaText.textContent = currentUser.meta ? (Math.round(currentUser.meta/60)+' min') : 'Nenhuma';
-  sessionsEl.textContent = currentUser.sessions || 0;
-}
-
-// auto-login
-async function autoLogin() {
-  const saved = localStorage.getItem('vs_user');
-  if (saved) {
-    const ref = doc(db,'users',saved);
-    const snap = await getDoc(ref);
-    if (snap.exists()) { currentUser = { username: saved, ...snap.data() }; showProfile(); loadHistory(); }
-    else localStorage.removeItem('vs_user');
-  } else {
-    // default guest UI
-    showGuestUI();
-  }
-}
-autoLogin();
-
-// TIMER
-function formatTime(sec) { const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60), s=sec%60; return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; }
-
-function updateCircle(progress) {
-  const circle = $('circle');
-  circle.style.background = `conic-gradient(var(--accent) ${progress}deg, rgba(255,255,255,0.04) ${progress}deg)`;
-  timeDisplay.textContent = formatTime(remaining);
-}
-
-startBtn.addEventListener('click', () => {
-  if (running) return;
-  const h = parseInt(hoursInput.value)||0, m = parseInt(minutesInput.value)||0, s = parseInt(secondsInput.value)||0;
-  totalSeconds = h*3600 + m*60 + s;
-  if (totalSeconds <= 0) return alert('Defina um tempo válido');
-  remaining = totalSeconds;
-  running = true;
-  updateCircle(0);
-  interval = setInterval(async () => {
-    remaining--;
-    const prog = (1 - remaining/totalSeconds)*360;
-    updateCircle(prog);
-    if (remaining <= 0) {
-      clearInterval(interval); running = false; timeDisplay.textContent = '00:00:00';
-      alert('Sessão finalizada!');
-      // if logged, record study
-      if (currentUser) { await recordStudy(); fetchRanking(); loadHistory(); }
-      motivation.textContent = ['Ótimo trabalho!','Missão cumprida!','Mais um dia vencido!','Foco e disciplina!'][Math.floor(Math.random()*4)];
+    function login() {
+      const nome = document.getElementById('nome').value;
+      const senha = document.getElementById('senha').value;
+      if (!nome || !senha) { alert('Preencha nome e senha.'); return; }
+      modo = "logado";
+      document.getElementById('bemvindo').textContent = "Bem-vindo, " + nome + "!";
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
     }
-  },1000);
-});
 
-pauseBtn.addEventListener('click', () => { if (!running) return; clearInterval(interval); running=false; });
-resetBtn.addEventListener('click', () => { clearInterval(interval); running=false; remaining=totalSeconds; updateCircle(0); timeDisplay.textContent = formatTime(remaining); });
+    function modoConvidado() {
+      document.getElementById('bemvindo').textContent = "Modo Convidado";
+      modo = "convidado";
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+    }
 
-// record study
-async function recordStudy() {
-  if (!currentUser) return;
-  const ref = doc(db,'users',currentUser.username);
-  const snap = await getDoc(ref);
-  const data = snap.data();
-  const today = new Date().toDateString();
-  const last = data.lastStudy ? new Date(data.lastStudy).toDateString() : null;
-  let streak = data.streak || 0;
-  if (last === today) return;
-  if (last) { const diff = Math.round((new Date(today)-new Date(last))/(1000*60*60*24)); if (diff===1) streak = (streak||0)+1; else streak = 1; } else streak = 1;
-  const sessions = (data.sessions||0)+1;
-  await updateDoc(ref,{ streak, lastStudy: new Date().toISOString(), sessions });
-  currentUser = { username: currentUser.username, ... (await (await getDoc(ref)).data()) };
-  showProfile();
-}
+    function formatar(seg) {
+      const h = String(Math.floor(seg / 3600)).padStart(2,'0');
+      const m = String(Math.floor((seg % 3600) / 60)).padStart(2,'0');
+      const s = String(seg % 60).padStart(2,'0');
+      return `${h}:${m}:${s}`;
+    }
 
-// ranking fetch top10
-async function fetchRanking() {
-  const q = query(collection(db,'users'), orderBy('streak','desc'), limit(50));
-  const snaps = await getDocs(q);
-  let list = [];
-  snaps.forEach(s => { const d = s.data(); list.push({ username: d.username||s.id, streak: d.streak||0, sessions: d.sessions||0 }); });
-  totalUsers.textContent = list.length;
-  // fill main ranking (top10)
-  mainRanking.innerHTML = '';
-  sideRanking.innerHTML = '';
-  list.slice(0,10).forEach((u,idx) => {
-    const div = document.createElement('div'); div.className='rank-item';
-    const medal = idx===0? '🥇' : idx===1? '🥈' : idx===2? '🥉' : '<span class="medal">'+(idx+1)+'</span>';
-    div.innerHTML = `<div class="user-row"><div>${medal}</div><div style="margin-left:8px"><strong>${u.username}</strong><div class="small">${u.sessions} sessões</div></div></div><div style="font-weight:700">${u.streak} dias</div>`;
-    mainRanking.appendChild(div);
-    // side list shorter
-    const side = div.cloneNode(true);
-    sideRanking.appendChild(side);
-  });
-}
+    function iniciar() {
+      if (timer) return;
+      timer = setInterval(() => {
+        segundos++;
+        document.getElementById('timer').textContent = formatar(segundos);
+        if (segundos % 3600 === 0) mostrarMensagem();
+      }, 1000);
+    }
 
-// history load
-async function loadHistory() {
-  historyList.innerHTML = '';
-  try {
-    const snaps = await getDocs(query(collection(db,'users',currentUser.username,'history'), orderBy('ts','desc'), limit(10)));
-    snaps.forEach(docSnap => { const d = docSnap.data(); const el = document.createElement('div'); el.className='muted'; el.style.padding='6px 0'; el.textContent = `${new Date(d.ts).toLocaleString()} — ${Math.floor(d.duration/60)}m ${d.duration%60}s`; historyList.appendChild(el); });
-  } catch(e) { console.warn('História não disponível',e); }
-}
+    function pausar() {
+      clearInterval(timer);
+      timer = null;
+    }
 
-// set meta
-setMetaBtn.addEventListener('click', async () => {
-  if (!currentUser) return alert('Faça login');
-  const input = prompt('Meta diária em minutos (ex: 180). Deixe vazio para remover.');
-  if (input === null) return;
-  const mins = parseInt(input);
-  if (!mins) { await updateDoc(doc(db,'users',currentUser.username), { meta: null }); currentUser.meta = null; }
-  else { const metaSec = mins*60; await updateDoc(doc(db,'users',currentUser.username), { meta: metaSec }); currentUser.meta = metaSec; }
-  showProfile();
-});
+    function zerar() {
+      pausar();
+      segundos = 0;
+      document.getElementById('timer').textContent = "00:00:00";
+      document.getElementById('mensagem').textContent = "";
+    }
 
-// add history entry helper when recording study
-async function addHistoryEntry(duration) {
-  if (!currentUser) return;
-  const histCol = collection(db,'users',currentUser.username,'history');
-  await addDoc(histCol, { ts: new Date().toISOString(), duration });
-}
-
-// modify recordStudy to also add history entry
-const origRecord = recordStudy;
-recordStudy = async function() {
-  if (!currentUser) return;
-  const ref = doc(db,'users',currentUser.username);
-  const snap = await getDoc(ref);
-  const data = snap.data();
-  const today = new Date().toDateString();
-  const last = data.lastStudy ? new Date(data.lastStudy).toDateString() : null;
-  let streak = data.streak || 0;
-  if (last === today) return;
-  if (last) { const diff = Math.round((new Date(today)-new Date(last))/(1000*60*60*24)); if (diff===1) streak = (streak||0)+1; else streak = 1; } else streak = 1;
-  const sessions = (data.sessions||0)+1;
-  await updateDoc(ref,{ streak, lastStudy: new Date().toISOString(), sessions });
-  await addHistoryEntry(totalSeconds);
-  currentUser = { username: currentUser.username, ...(await (await getDoc(ref)).data()) };
-  showProfile();
-}
-
-// auto refresh ranking every 20s
-setInterval(fetchRanking, 20000);
-fetchRanking();
-
-// override autoLogin to also fetch ranking
-async function init() {
-  await autoLogin();
-  fetchRanking();
-}
-init();
-
-</script>
+    function mostrarMensagem() {
+      const mensagens = [
+        "Excelente trabalho, Sargento! Continue firme 💪",
+        "Disciplina é o caminho da vitória! ⚔️",
+        "Mais uma hora de dedicação! 🕒",
+        "Você está construindo sua constância! 🧠",
+        "O esforço de hoje é o resultado de amanhã! 🚀"
+      ];
+      const m = mensagens[Math.floor(Math.random() * mensagens.length)];
+      document.getElementById('mensagem').textContent = m;
+    }
+  </script>
 </body>
 </html>
