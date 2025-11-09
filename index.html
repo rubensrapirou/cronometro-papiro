@@ -8,191 +8,378 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg1: #1e1f14;          /* verde-escuro/terra para fundo */
-  --bg2: #3b4421;          /* verde musgo escuro para gradiente */
-  --accent: #a7ad5a;       /* verde oliva claro para destaques */
-  --success: #d9db70;      /* amarelo esverdeado para sucesso */
-  --warning: #c28e22;      /* amarelo mostarda para avisos */
-  --danger: #9c3f13;       /* laranja queimado para erros */
-  --muted: rgba(255,255,255,0.1);
+  --bg1: #000000;           /* fundo preto */
+  --bg2: #121212;           /* cinza muito escuro */
+  --accent: #d4af37;        /* dourado clássico */
+  --success: #a5b466;       /* verde suave */
+  --warning: #c68e17;       /* amarelo queimado */
+  --danger: #b25e28;        /* cobre escuro */
+  --muted: rgba(255,255,255,0.15);
 }
-* { box-sizing: border-box; font-family: 'Inter', sans-serif; transition: all 0.2s ease; }
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.25s ease;
+}
 body {
   margin: 0;
-  background: radial-gradient(circle at top, var(--bg2), var(--bg1));
-  color: #e9f3ff;
+  background: radial-gradient(circle at center, var(--bg2), var(--bg1));
+  color: #f5f2dc;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 18px;
+  padding: 24px;
 }
 .container {
-  width: 1150px;
+  width: 1100px;
   max-width: 98%;
   display: grid;
   grid-template-columns: 360px 1fr;
-  gap: 24px;
+  gap: 28px;
 }
 .card {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  background: #1a1a1a;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 4px 15px rgba(212,175,55,0.5);
+  border: 2px solid var(--accent);
 }
 .logo {
-  width: 140px;
+  width: 160px;
   display: block;
-  margin: 10px auto;
+  margin: 0 auto 14px auto;
+  filter: drop-shadow(0 0 2px var(--accent));
 }
 h1.title {
   font-family: 'Orbitron', sans-serif;
-  text-align: center;
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: var(--accent);
-  letter-spacing: 1px;
-  margin-bottom: 4px;
-  text-shadow: 0 0 8px rgba(0,191,255,0.6);
+  text-align: center;
+  margin-bottom: 8px;
+  text-shadow: 0 0 10px var(--accent);
 }
 .subtitle {
   text-align: center;
-  color: rgba(255,255,255,0.7);
-  font-size: 0.9rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #ddd4a0;
   margin-bottom: 16px;
+  font-style: italic;
 }
-label { font-size: 13px; color: #a9bcd6; margin-bottom: 4px; display: block; }
+label {
+  font-size: 14px;
+  color: #ccc49f;
+  margin-bottom: 6px;
+  display: block;
+  font-weight: 600;
+}
 input {
-  width: 100%; padding: 10px; border-radius: 8px;
-  border: 1px solid var(--muted); background: transparent;
-  color: #e9f3ff; margin-bottom: 10px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--muted);
+  background: #222;
+  color: var(--accent);
+  font-size: 1rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+  box-shadow: inset 0 0 8px #9e8c2e;
+}
+input::placeholder {
+  color: #6c5e18;
+  font-weight: 400;
 }
 .btn {
-  border: none; border-radius: 8px; padding: 10px 14px;
-  font-weight: 700; cursor: pointer; font-size: 0.9rem;
-  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 0 0 10px rgba(212,175,55,0.6);
+  user-select: none;
+  margin-top: 8px;
 }
-.btn:hover { transform: scale(1.03); }
-.btn:active { transform: scale(0.97); }
-
-.btn-primary { background: var(--accent); color: #fff; }
-.btn-success { background: var(--success); color: #001a10; }
-.btn-warning { background: var(--warning); color: #111; }
-.btn-danger  { background: var(--danger); color: #fff; }
-.btn-ghost   { background: transparent; border: 1px solid var(--muted); color: #e9f3ff; }
-
-.streak { font-weight: 700; color: var(--accent); text-align: center; margin-bottom: 8px; }
+.btn:hover {
+  filter: brightness(1.2);
+  transform: scale(1.05);
+}
+.btn:active {
+  transform: scale(0.97);
+  filter: brightness(0.9);
+}
+.btn-primary {
+  background: var(--accent);
+  color: #121212;
+  letter-spacing: 0.03em;
+}
+.btn-success {
+  background: var(--success);
+  color: #242a1a;
+}
+.btn-warning {
+  background: var(--warning);
+  color: #372b06;
+}
+.btn-danger {
+  background: var(--danger);
+  color: #3a1f0c;
+}
+.btn-ghost {
+  background: transparent;
+  border: 2px solid var(--muted);
+  color: var(--accent);
+  font-weight: 600;
+}
+.streak {
+  font-weight: 800;
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 6px var(--accent);
+}
 .meta-box {
-  background: rgba(0,0,0,0.3);
-  border-radius: 8px; padding: 12px;
-  text-align: center; margin-top: 8px;
-  border: 1px solid rgba(255,255,255,0.05);
+  background: #2b2b2b;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  margin-top: 14px;
+  border: 1px solid #5a511d;
+  color: #d8cc7c;
+  font-weight: 600;
+  font-size: 1rem;
 }
-.timer-area { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; align-items: flex-start; }
+.timer-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+}
 .circle {
-  width: 360px; height: 360px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  background: conic-gradient(var(--accent) 0deg, rgba(255,255,255,0.05) 0deg);
-  box-shadow: 0 0 25px rgba(0,191,255,0.3);
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* gold background wedge */
+  background: conic-gradient(var(--accent) 0deg, rgba(212,175,55,0.12) 0deg);
+  box-shadow: 0 0 30px var(--accent);
 }
 .inner {
-  width: 310px; height: 310px; border-radius: 50%;
-  background: linear-gradient(180deg,#05101a,#0a1c2f);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #292919, #1a1714);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 24px rgba(212,175,55,0.6);
 }
-.timebig { font-size: 3rem; font-weight: 700; letter-spacing: 1px; color: #fff; text-shadow: 0 0 6px rgba(255,255,255,0.4); }
+.timebig {
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent);
+  font-family: 'Orbitron', sans-serif;
+}
 .progress {
-  width: 270px; height: 12px; background: rgba(255,255,255,0.08);
-  border-radius: 6px; margin-top: 8px; overflow: hidden;
+  width: 275px;
+  height: 14px;
+  background: rgba(212,175,55,0.12);
+  border-radius: 8px;
+  margin-top: 12px;
+  overflow: hidden;
+  box-shadow: inset 0 0 16px rgba(212,175,55,0.4);
 }
-.progress > i { display: block; height: 100%; background: var(--accent); width: 0%; transition: width 0.2s; }
-
-.ranking { max-height: 380px; overflow: auto; padding: 4px; }
+.progress > i {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  width: 0%;
+  transition: width 0.3s ease-in-out;
+  box-shadow: 0 0 15px var(--accent);
+}
+.ranking {
+  max-height: 390px;
+  overflow-y: auto;
+  padding: 6px;
+  border: 1px solid #664d0e;
+  border-radius: 10px;
+  background: #1a1a1a;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--accent);
+}
 .rank-item {
-  display: flex; justify-content: space-between; align-items: center;
-  background: rgba(255,255,255,0.03);
-  border-radius: 8px; padding: 10px;
-  border: 1px solid rgba(255,255,255,0.05);
-  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #282828;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 12px rgba(212,175,55,0.5);
+  transition: background 0.3s ease;
 }
-.rank-item strong { color: #fff; }
-.rank-item:nth-child(1) { background: linear-gradient(90deg,#ffd70033,#0000); border-color: #ffd70066; }
-.rank-item:nth-child(2) { background: linear-gradient(90deg,#c0c0c033,#0000); border-color: #c0c0c066; }
-.rank-item:nth-child(3) { background: linear-gradient(90deg,#cd7f3233,#0000); border-color: #cd7f3266; }
-
-.small { font-size: 13px; color: rgba(255,255,255,0.7); }
-.muted { font-size: 12px; color: rgba(255,255,255,0.55); }
+.rank-item strong {
+  color: var(--accent);
+}
+.rank-item:nth-child(1) {
+  background: linear-gradient(90deg, #ffd70055, #00000000);
+  border-color: #ffd70077;
+  box-shadow: 0 0 20px #ffd700bb;
+}
+.rank-item:nth-child(2) {
+  background: linear-gradient(90deg, #c0c0c033, #00000000);
+  border-color: #c0c0c055;
+  box-shadow: 0 0 14px #c0c0c0aa;
+}
+.rank-item:nth-child(3) {
+  background: linear-gradient(90deg, #cd7f3233, #00000000);
+  border-color: #cd7f3266;
+  box-shadow: 0 0 16px #cd7f3299;
+}
+.small {
+  font-size: 0.85rem;
+  color: #bcaa5d;
+}
+.muted {
+  font-size: 0.75rem;
+  color: #7a6b1e;
+}
 @media (max-width: 980px) {
-  .container { grid-template-columns: 1fr; }
-  .circle { width: 300px; height: 300px; }
-  .inner { width: 260px; height: 260px; }
+  .container {
+    grid-template-columns: 1fr;
+  }
+  .circle {
+    width: 300px;
+    height: 300px;
+  }
+  .inner {
+    width: 260px;
+    height: 260px;
+  }
 }
 </style>
 </head>
 <body>
 <div class="container">
   <div class="card">
-    <img src="logo.png" class="logo" alt="Logo">
+    <img src="logo.png" class="logo" alt="Logo" />
     <h1 class="title">VOCÊ SARGENTO</h1>
     <div class="subtitle">Disciplina • Constância • Vitória</div>
 
     <div id="authBox">
-      <label>Usuário</label><input id="username" type="text" placeholder="ex: futurosargento" value="">
-      <label>Senha</label><input id="password" type="password" placeholder="senha" value="">
-      <div style="display:flex;gap:8px;margin-top:6px">
+      <label for="username">Usuário</label>
+      <input id="username" type="text" placeholder="Digite seu usuário" autocomplete="off" />
+      <label for="password">Senha</label>
+      <input id="password" type="password" placeholder="Digite sua senha" autocomplete="off" />
+      <div style="display:flex;gap:12px;margin-top:12px">
         <button id="loginBtn" class="btn btn-primary">Entrar</button>
         <button id="registerBtn" class="btn btn-ghost">Criar conta</button>
       </div>
-      <div style="margin-top:10px">
-        <button id="guestBtn" class="btn btn-ghost" style="width:100%">Estudar como convidado</button>
+      <div style="margin-top:16px">
+        <button id="guestBtn" class="btn btn-ghost" style="width:100%">
+          Estudar como convidado
+        </button>
       </div>
     </div>
-
     <div id="profileBox" style="display:none">
       <div class="streak" id="streak">📅 Constância: 0 dias</div>
-      <div style="text-align:center;margin-bottom:10px">Bem-vindo, <strong id="welcomeName"></strong></div>
+      <div style="text-align:center;margin-bottom:10px">
+        Bem-vindo, <strong id="welcomeName"></strong>
+      </div>
       <button id="logoutBtn" class="btn btn-ghost" style="width:100%">Sair</button>
       <div class="meta-box">
         <div class="small">Meta diária</div>
-        <div id="metaText" style="font-weight:700;margin-top:6px">Nenhuma</div>
+        <div id="metaText" style="font-weight:700;margin-top:6px;">Nenhuma</div>
       </div>
       <div style="margin-top:10px">
-        <button id="setMetaBtn" class="btn btn-primary" style="width:100%">Definir meta</button>
+        <button id="setMetaBtn" class="btn btn-primary" style="width:100%">
+          Definir meta
+        </button>
       </div>
-    </div>
-
-    <div style="margin-top:16px">
-      <div class="small">🏆 Ranking Top 10</div>
-      <div id="sideRanking" class="ranking"></div>
     </div>
   </div>
 
   <div class="card">
     <div class="timer-area">
-      <div class="circle" id="circle"><div class="inner">
-        <div class="timebig" id="timeDisplay">00:00:00</div>
-        <div class="progress"><i id="progressFill"></i></div>
-        <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
-          <input id="hours" type="number" min="0" max="23" placeholder="h" style="width:60px">
-          <input id="minutes" type="number" min="0" max="59" placeholder="min" style="width:60px">
-          <input id="seconds" type="number" min="0" max="59" placeholder="s" style="width:60px">
-        </div>
-        <div class="controls" style="margin-top:12px">
-          <button id="startBtn" class="btn btn-success">Iniciar</button>
-          <button id="pauseBtn" class="btn btn-warning">Pausar</button>
-          <button id="resetBtn" class="btn btn-danger">Resetar</button>
-        </div>
-        <div id="motivation" class="small" style="margin-top:12px;text-align:center">Foco total, Sargento!</div>
-      </div></div>
-
-      <div style="flex:1;min-width:260px">
-        <div class="card" style="padding:12px">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div style="font-weight:700">Ranking — Top 10</div>
-            <div class="small">Total: <span id="totalUsers">0</span></div>
+      <div class="circle" id="circle">
+        <div class="inner">
+          <div class="timebig" id="timeDisplay">00:00:00</div>
+          <div class="progress"><i id="progressFill"></i></div>
+          <div
+            style="
+              margin-top: 10px;
+              display: flex;
+              gap: 6px;
+              flex-wrap: wrap;
+              justify-content: center;
+            "
+          >
+            <input
+              id="hours"
+              type="number"
+              min="0"
+              max="23"
+              placeholder="h"
+              style="width: 60px"
+            />
+            <input
+              id="minutes"
+              type="number"
+              min="0"
+              max="59"
+              placeholder="min"
+              style="width: 60px"
+            />
+            <input
+              id="seconds"
+              type="number"
+              min="0"
+              max="59"
+              placeholder="s"
+              style="width: 60px"
+            />
           </div>
-          <div id="mainRanking" class="ranking" style="margin-top:8px"></div>
+          <div class="controls" style="margin-top: 12px">
+            <button id="startBtn" class="btn btn-success">Iniciar</button>
+            <button id="pauseBtn" class="btn btn-warning">Pausar</button>
+            <button id="resetBtn" class="btn btn-danger">Resetar</button>
+          </div>
+          <div
+            id="motivation"
+            class="small"
+            style="margin-top: 12px; text-align: center"
+          >
+            Foco total, Sargento!
+          </div>
+        </div>
+      </div>
+
+      <div style="flex: 1; min-width: 260px">
+        <div class="card" style="padding: 12px">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <div style="font-weight: 700">Ranking — Top 10</div>
+            <div class="small"
+              >Total: <span id="totalUsers">0</span></div
+            >
+          </div>
+          <div id="mainRanking" class="ranking" style="margin-top: 8px"></div>
         </div>
       </div>
     </div>
@@ -210,87 +397,212 @@ const firebaseConfig = {
   appId: "1:144820811065:web:fe0f99e9f57947722724e8",
   measurementId: "G-5F4EXDDPD0"
 };
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  limit
+} from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Helper
 const $ = id => document.getElementById(id);
-const loginBtn=$('loginBtn'),registerBtn=$('registerBtn'),guestBtn=$('guestBtn');
-const logoutBtn=$('logoutBtn'),setMetaBtn=$('setMetaBtn');
-const authBox=$('authBox'),profileBox=$('profileBox');
-const usernameInput=$('username'),passwordInput=$('password');
-const welcomeName=$('welcomeName'),streakEl=$('streak'),metaText=$('metaText');
-const timeDisplay=$('timeDisplay'),startBtn=$('startBtn'),pauseBtn=$('pauseBtn'),resetBtn=$('resetBtn');
-const hoursInput=$('hours'),minutesInput=$('minutes'),secondsInput=$('seconds');
-const progressFill=$('progressFill'),mainRanking=$('mainRanking'),sideRanking=$('sideRanking'),totalUsers=$('totalUsers');
-let currentUser=null,interval=null,running=false,totalSeconds=0,remaining=0;
 
-async function hashPassword(pw){const enc=new TextEncoder();const hashBuffer=await crypto.subtle.digest('SHA-256',enc.encode(pw));return Array.from(new Uint8Array(hashBuffer)).map(b=>b.toString(16).padStart(2,'0')).join('');}
+const loginBtn = $('loginBtn'),
+  registerBtn = $('registerBtn'),
+  guestBtn = $('guestBtn');
+const logoutBtn = $('logoutBtn'),
+  setMetaBtn = $('setMetaBtn');
+const authBox = $('authBox'),
+  profileBox = $('profileBox');
+const usernameInput = $('username'),
+  passwordInput = $('password');
+const welcomeName = $('welcomeName'),
+  streakEl = $('streak'),
+  metaText = $('metaText');
+const timeDisplay = $('timeDisplay'),
+  startBtn = $('startBtn'),
+  pauseBtn = $('pauseBtn'),
+  resetBtn = $('resetBtn');
+const hoursInput = $('hours'),
+  minutesInput = $('minutes'),
+  secondsInput = $('seconds');
+const progressFill = $('progressFill'),
+  mainRanking = $('mainRanking'),
+  sideRanking = $('sideRanking'),
+  totalUsers = $('totalUsers');
 
-async function registerUser(){
- const username=usernameInput.value.trim().toLowerCase();
- const password=passwordInput.value;
- if(!username)return alert('Digite um usuário');
- const ref=doc(db,'users',username);
- const snap=await getDoc(ref);
- if(snap.exists())return alert('Usuário já existe');
- const pwHash=await hashPassword(password);
- await setDoc(ref,{username,pwHash,streak:0,lastStudy:null,sessions:0});
- alert('Conta criada. Faça login.');
+let currentUser = null,
+  interval = null,
+  running = false,
+  totalSeconds = 0,
+  remaining = 0;
+
+async function hashPassword(pw) {
+  const enc = new TextEncoder();
+  const hashBuffer = await crypto.subtle.digest('SHA-256', enc.encode(pw));
+  return Array.from(new Uint8Array(hashBuffer))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
 }
 
-async function loginUser(){
- const username=usernameInput.value.trim().toLowerCase();
- const password=passwordInput.value;
- if(!username)return alert('Digite usuário');
- const ref=doc(db,'users',username);
- const snap=await getDoc(ref);
- if(!snap.exists())return alert('Usuário não encontrado.');
- const data=snap.data();
- const hash=await hashPassword(password);
- if(hash!==data.pwHash)return alert('Senha incorreta');
- currentUser={username,...data};
- localStorage.setItem('vs_user',username);
- showProfile();fetchRanking();
+async function registerUser() {
+  const username = usernameInput.value.trim().toLowerCase();
+  const password = passwordInput.value;
+  if (!username) return alert('Digite um usuário');
+  const ref = doc(db, 'users', username);
+  const snap = await getDoc(ref);
+  if (snap.exists()) return alert('Usuário já existe');
+  const pwHash = await hashPassword(password);
+  await setDoc(ref, {
+    username,
+    pwHash,
+    streak: 0,
+    lastStudy: null,
+    sessions: 0
+  });
+  alert('Conta criada. Faça login.');
 }
-loginBtn.onclick=loginUser;
-registerBtn.onclick=registerUser;
-guestBtn.onclick=()=>{currentUser=null;localStorage.removeItem('vs_user');authBox.style.display='none';profileBox.style.display='none';fetchRanking();};
-logoutBtn.onclick=()=>{currentUser=null;localStorage.removeItem('vs_user');authBox.style.display='block';profileBox.style.display='none';};
-function showProfile(){authBox.style.display='none';profileBox.style.display='block';welcomeName.textContent=currentUser.username;streakEl.textContent='📅 Constância: '+(currentUser.streak||0)+' dias';}
-function formatTime(sec){const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;return \`\${String(h).padStart(2,'0')}:\${String(m).padStart(2,'0')}:\${String(s).padStart(2,'0')}\`;}
 
-startBtn.onclick=()=>{
- if(running)return;
- const h=parseInt(hoursInput.value)||0,m=parseInt(minutesInput.value)||0,s=parseInt(secondsInput.value)||0;
- totalSeconds=h*3600+m*60+s;
- if(totalSeconds<=0)return alert('Defina um tempo válido');
- remaining=totalSeconds;running=true;
- interval=setInterval(async()=>{
-  remaining--;
-  progressFill.style.width=\`\${(1-remaining/totalSeconds)*100}%\`;
-  timeDisplay.textContent=formatTime(remaining);
-  if(remaining<=0){clearInterval(interval);running=false;alert('Sessão concluída!');if(currentUser){const ref=doc(db,'users',currentUser.username);const snap=await getDoc(ref);const data=snap.data();let streak=data.streak||0;const today=new Date().toDateString();const last=data.lastStudy?new Date(data.lastStudy).toDateString():null;if(last===today)return;if(last){const diff=Math.round((new Date(today)-new Date(last))/(1000*60*60*24));if(diff===1)streak++;else streak=1;}else streak=1;await updateDoc(ref,{streak,lastStudy:new Date().toISOString(),sessions:(data.sessions||0)+1});fetchRanking();showProfile();}}
- },1000);
+async function loginUser() {
+  const username = usernameInput.value.trim().toLowerCase();
+  const password = passwordInput.value;
+  if (!username) return alert('Digite usuário');
+  const ref = doc(db, 'users', username);
+  const snap = await getDoc(ref);
+  if (!snap.exists()) return alert('Usuário não encontrado.');
+  const data = snap.data();
+  const hash = await hashPassword(password);
+  if (hash !== data.pwHash) return alert('Senha incorreta');
+  currentUser = {
+    username,
+    ...data
+  };
+  localStorage.setItem('vs_user', username);
+  showProfile();
+  fetchRanking();
+}
+
+loginBtn.onclick = loginUser;
+registerBtn.onclick = registerUser;
+guestBtn.onclick = () => {
+  currentUser = null;
+  localStorage.removeItem('vs_user');
+  authBox.style.display = 'none';
+  profileBox.style.display = 'none';
+  fetchRanking();
 };
-pauseBtn.onclick=()=>{if(!running)return;clearInterval(interval);running=false;};
-resetBtn.onclick=()=>{clearInterval(interval);running=false;progressFill.style.width='0%';timeDisplay.textContent='00:00:00';};
+logoutBtn.onclick = () => {
+  currentUser = null;
+  localStorage.removeItem('vs_user');
+  authBox.style.display = 'block';
+  profileBox.style.display = 'none';
+};
+function showProfile() {
+  authBox.style.display = 'none';
+  profileBox.style.display = 'block';
+  welcomeName.textContent = currentUser.username;
+  streakEl.textContent = '📅 Constância: ' + (currentUser.streak || 0) + ' dias';
+}
+function formatTime(sec) {
+  const h = Math.floor(sec / 3600),
+    m = Math.floor((sec % 3600) / 60),
+    s = sec % 60;
+  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
 
-async function fetchRanking(){
- const q=query(collection(db,'users'),orderBy('streak','desc'),limit(50));
- const snaps=await getDocs(q);let list=[];
- snaps.forEach(s=>{const d=s.data();list.push({username:d.username||s.id,streak:d.streak||0,sessions:d.sessions||0});});
- totalUsers.textContent=list.length;mainRanking.innerHTML='';sideRanking.innerHTML='';
- list.slice(0,10).forEach((u,idx)=>{
-   const div=document.createElement('div');div.className='rank-item';
-   div.innerHTML=\`<div><strong>\${idx+1}. \${u.username}</strong><div class='small'>\${u.sessions} sessões</div></div><div style='font-weight:700'>\${u.streak} dias</div>\`;
-   mainRanking.appendChild(div);sideRanking.appendChild(div.cloneNode(true));
- });
+startBtn.onclick = () => {
+  if (running) return;
+  const h = parseInt(hoursInput.value) || 0,
+    m = parseInt(minutesInput.value) || 0,
+    s = parseInt(secondsInput.value) || 0;
+  totalSeconds = h * 3600 + m * 60 + s;
+  if (totalSeconds <= 0) return alert('Defina um tempo válido');
+  remaining = totalSeconds;
+  running = true;
+  interval = setInterval(async () => {
+    remaining--;
+    progressFill.style.width = `${(1 - remaining / totalSeconds) * 100}%`;
+    timeDisplay.textContent = formatTime(remaining);
+    if (remaining <= 0) {
+      clearInterval(interval);
+      running = false;
+      alert('Sessão concluída!');
+      if (currentUser) {
+        const ref = doc(db, 'users', currentUser.username);
+        const snap = await getDoc(ref);
+        const data = snap.data();
+        let streak = data.streak || 0;
+        const today = new Date().toDateString();
+        const last = data.lastStudy ? new Date(data.lastStudy).toDateString() : null;
+        if (last === today) return;
+        if (last) {
+          const diff = Math.round(
+            (new Date(today) - new Date(last)) / (1000 * 60 * 60 * 24)
+          );
+          if (diff === 1) streak++;
+          else streak = 1;
+        } else streak = 1;
+        await updateDoc(ref, {
+          streak,
+          lastStudy: new Date().toISOString(),
+          sessions: (data.sessions || 0) + 1
+        });
+        fetchRanking();
+        showProfile();
+      }
+    }
+  }, 1000);
+};
+pauseBtn.onclick = () => {
+  if (!running) return;
+  clearInterval(interval);
+  running = false;
+};
+resetBtn.onclick = () => {
+  clearInterval(interval);
+  running = false;
+  progressFill.style.width = '0%';
+  timeDisplay.textContent = '00:00:00';
+};
+
+async function fetchRanking() {
+  const q = query(collection(db, 'users'), orderBy('streak', 'desc'), limit(50));
+  const snaps = await getDocs(q);
+  let list = [];
+  snaps.forEach(s => {
+    const d = s.data();
+    list.push({
+      username: d.username || s.id,
+      streak: d.streak || 0,
+      sessions: d.sessions || 0
+    });
+  });
+  totalUsers.textContent = list.length;
+  mainRanking.innerHTML = '';
+  sideRanking.innerHTML = '';
+  list.slice(0, 10).forEach((u, idx) => {
+    const div = document.createElement('div');
+    div.className = 'rank-item';
+    div.innerHTML = `<div><strong>${idx + 1}. ${u.username}</strong><div class='small'>${u.sessions} sessões</div></div><div style='font-weight:700'>${u.streak} dias</div>`;
+    mainRanking.appendChild(div);
+    sideRanking.appendChild(div.cloneNode(true));
+  });
 }
 fetchRanking();
-setInterval(fetchRanking,20000);
+setInterval(fetchRanking, 20000);
 </script>
 </body>
 </html>
