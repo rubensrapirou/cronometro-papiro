@@ -3,27 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Você Sargento - Cronômetro</title>
+  <title>Você Sargento - Cronômetro de Estudos</title>
   <style>
     :root {
       --size: 320px;
       --ring-width: 20px;
       --accent: #d4af37; /* dourado */
-      --bg: #0c0f17;
-      --ring-bg: rgba(255,255,255,0.08);
+      --bg: #0b0f19;
+      --ring-bg: rgba(255, 255, 255, 0.1);
     }
 
     body {
       margin: 0;
       height: 100vh;
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      color: white;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .title {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: var(--accent);
+      text-align: center;
+    }
+
+    .input-container {
+      display: flex;
+      gap: 10px;
       justify-content: center;
       align-items: center;
-      background: var(--bg);
-      font-family: "Poppins", sans-serif;
-      color: #fff;
-      flex-direction: column;
-      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .input-container input {
+      width: 60px;
+      padding: 5px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: transparent;
+      color: white;
+      text-align: center;
+      font-size: 1rem;
     }
 
     .timer {
@@ -31,101 +56,80 @@
       width: var(--size);
       height: var(--size);
       border-radius: 50%;
+      background: conic-gradient(var(--accent) 0deg, var(--ring-bg) 0deg);
       display: flex;
       align-items: center;
       justify-content: center;
-      background: conic-gradient(var(--accent) 0deg, var(--ring-bg) 0deg);
       transition: background 0.3s linear;
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
     }
 
     .inner {
       position: absolute;
-      width: calc(var(--size) - var(--ring-width)*2);
-      height: calc(var(--size) - var(--ring-width)*2);
+      width: calc(var(--size) - var(--ring-width) * 2);
+      height: calc(var(--size) - var(--ring-width) * 2);
       background: #1a1f2b;
       border-radius: 50%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
       overflow: hidden;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
     }
 
     .logo {
-      width: 90px;
+      width: 100px;
       height: auto;
       margin-bottom: 10px;
     }
 
     .time {
-      font-size: 2.3rem;
+      font-size: 2rem;
       font-weight: 600;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
     }
 
     .controls {
+      margin-top: 15px;
       display: flex;
-      gap: 8px;
-      margin-top: 10px;
+      gap: 10px;
     }
 
     button {
       background: none;
-      border: 1px solid rgba(255,255,255,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       color: white;
-      padding: 6px 12px;
+      padding: 6px 14px;
       border-radius: 6px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: 0.3s;
     }
 
     button:hover {
-      background: rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .start {
       border-color: var(--accent);
       color: var(--accent);
     }
-
-    .input-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .input-container label {
-      font-size: 0.9rem;
-      opacity: 0.8;
-      margin-bottom: 4px;
-    }
-
-    .input-container input {
-      width: 100px;
-      text-align: center;
-      padding: 5px;
-      border-radius: 6px;
-      border: 1px solid rgba(255,255,255,0.3);
-      background: transparent;
-      color: white;
-      font-size: 1rem;
-    }
   </style>
 </head>
 <body>
 
+  <h1 class="title">Cronômetro de Estudos - Você Sargento</h1>
+
   <div class="input-container">
-    <label for="timeInput">Defina o tempo (em segundos):</label>
-    <input type="number" id="timeInput" min="1" value="30">
+    <input type="number" id="hours" min="0" max="23" placeholder="h">
+    <input type="number" id="minutes" min="0" max="59" placeholder="min">
+    <input type="number" id="seconds" min="0" max="59" placeholder="s">
   </div>
 
   <div class="timer" id="timer">
     <div class="inner">
-      <img src="logo.png" alt="Logo Você Sargento" class="logo" />
-      <div class="time" id="time">00:30</div>
+      <img src="logo.png" alt="Logo Você Sargento" class="logo">
+      <div class="time" id="time">00:00:00</div>
       <div class="controls">
         <button class="start" id="startBtn">Iniciar</button>
         <button id="pauseBtn">Pausar</button>
@@ -134,58 +138,84 @@
     </div>
   </div>
 
+  <audio id="endSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b8b5f1f65.mp3?filename=alarm-clock-short-6402.mp3"></audio>
+
   <script>
-    const timerEl = document.getElementById("timer");
     const timeEl = document.getElementById("time");
     const startBtn = document.getElementById("startBtn");
     const pauseBtn = document.getElementById("pauseBtn");
     const resetBtn = document.getElementById("resetBtn");
-    const inputEl = document.getElementById("timeInput");
+    const timerEl = document.getElementById("timer");
+    const endSound = document.getElementById("endSound");
 
-    let duration = 30;
-    let remaining = duration;
+    let totalSeconds = 0;
+    let remaining = 0;
+    let interval = null;
     let running = false;
-    let startTime = null;
-    let raf = null;
-    let pausedTime = 0;
 
     function formatTime(s) {
-      const m = Math.floor(s / 60).toString().padStart(2, '0');
-      const sec = Math.floor(s % 60).toString().padStart(2, '0');
-      return `${m}:${sec}`;
+      const h = Math.floor(s / 3600);
+      const m = Math.floor((s % 3600) / 60);
+      const sec = s % 60;
+      return (
+        String(h).padStart(2, "0") +
+        ":" +
+        String(m).padStart(2, "0") +
+        ":" +
+        String(sec).padStart(2, "0")
+      );
     }
 
-    function updateDisplay(progress) {
-      const deg = progress * 360;
-      timerEl.style.background = `conic-gradient(var(--accent) ${deg}deg, var(--ring-bg) ${deg}deg)`;
+    function updateCircle() {
+      const progress = (1 - remaining / totalSeconds) * 360;
+      timerEl.style.background = `conic-gradient(var(--accent) ${progress}deg, var(--ring-bg) ${progress}deg)`;
       timeEl.textContent = formatTime(remaining);
     }
 
-    function tick(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const elapsed = (timestamp - startTime) / 1000 + pausedTime;
-      remaining = Math.max(duration - elapsed, 0);
-      const progress = (duration - remaining) / duration;
-      updateDisplay(progress);
+    function startTimer() {
+      if (running) return;
 
-      if (remaining > 0) {
-        raf = requestAnimationFrame(tick);
-      } else {
-        running = false;
-        startTime = null;
-        pausedTime = 0;
-        alert("⏰ Tempo finalizado!");
-      }
+      const h = parseInt(document.getElementById("hours").value) || 0;
+      const m = parseInt(document.getElementById("minutes").value) || 0;
+      const s = parseInt(document.getElementById("seconds").value) || 0;
+      totalSeconds = h * 3600 + m * 60 + s;
+
+      if (totalSeconds <= 0) return alert("Defina um tempo válido!");
+
+      remaining = totalSeconds;
+      running = true;
+
+      interval = setInterval(() => {
+        remaining--;
+        updateCircle();
+
+        if (remaining <= 0) {
+          clearInterval(interval);
+          running = false;
+          endSound.play();
+          alert("⏰ Tempo finalizado! Bom descanso, Sargento!");
+        }
+      }, 1000);
     }
 
-    startBtn.addEventListener("click", () => {
-      if (running) return;
-      duration = parseInt(inputEl.value) || 30;
-      remaining = duration;
-      running = true;
-      startTime = null;
-      pausedTime = 0;
-      raf = requestAnimationFrame(tick);
-    });
+    function pauseTimer() {
+      if (!running) return;
+      clearInterval(interval);
+      running = false;
+    }
 
-    pauseBtn.addEvent
+    function resetTimer() {
+      clearInterval(interval);
+      running = false;
+      remaining = totalSeconds;
+      updateCircle();
+    }
+
+    startBtn.addEventListener("click", startTimer);
+    pauseBtn.addEventListener("click", pauseTimer);
+    resetBtn.addEventListener("click", resetTimer);
+
+    updateCircle();
+  </script>
+</body>
+</html>
