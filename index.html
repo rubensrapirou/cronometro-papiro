@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cronômetro Fênix</title>
+  <title>Você Sargento - Cronômetro</title>
   <style>
     :root {
-      --size: 300px;           /* tamanho total do cronômetro */
-      --ring-width: 18px;      /* espessura do círculo */
-      --accent: #ff9800;       /* cor principal */
-      --bg: #0c0f17;           /* cor de fundo */
-      --ring-bg: rgba(255,255,255,0.1);
+      --size: 320px;
+      --ring-width: 20px;
+      --accent: #d4af37; /* dourado */
+      --bg: #0c0f17;
+      --ring-bg: rgba(255,255,255,0.08);
     }
 
     body {
@@ -20,8 +20,10 @@
       justify-content: center;
       align-items: center;
       background: var(--bg);
-      font-family: Arial, sans-serif;
-      color: white;
+      font-family: "Poppins", sans-serif;
+      color: #fff;
+      flex-direction: column;
+      gap: 15px;
     }
 
     .timer {
@@ -32,8 +34,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: conic-gradient(var(--accent) 0deg, transparent 0deg);
+      background: conic-gradient(var(--accent) 0deg, var(--ring-bg) 0deg);
       transition: background 0.3s linear;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
     }
 
     .inner {
@@ -47,31 +50,32 @@
       align-items: center;
       justify-content: center;
       box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
+      overflow: hidden;
     }
 
     .logo {
-      width: 60px;
-      height: 60px;
+      width: 90px;
+      height: auto;
       margin-bottom: 10px;
     }
 
     .time {
-      font-size: 2.2rem;
-      font-weight: bold;
+      font-size: 2.3rem;
+      font-weight: 600;
       letter-spacing: 1px;
     }
 
-    .buttons {
-      margin-top: 15px;
+    .controls {
       display: flex;
-      gap: 10px;
+      gap: 8px;
+      margin-top: 10px;
     }
 
     button {
       background: none;
-      border: 1px solid rgba(255,255,255,0.4);
+      border: 1px solid rgba(255,255,255,0.3);
       color: white;
-      padding: 8px 12px;
+      padding: 6px 12px;
       border-radius: 6px;
       cursor: pointer;
       transition: background 0.3s;
@@ -83,18 +87,46 @@
 
     .start {
       border-color: var(--accent);
+      color: var(--accent);
     }
 
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .input-container label {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-bottom: 4px;
+    }
+
+    .input-container input {
+      width: 100px;
+      text-align: center;
+      padding: 5px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: transparent;
+      color: white;
+      font-size: 1rem;
+    }
   </style>
 </head>
 <body>
 
+  <div class="input-container">
+    <label for="timeInput">Defina o tempo (em segundos):</label>
+    <input type="number" id="timeInput" min="1" value="30">
+  </div>
+
   <div class="timer" id="timer">
     <div class="inner">
-      <!-- Troque aqui pela sua logo -->
-      <img src="logo.png" alt="Logo" class="logo" />
+      <img src="logo.png" alt="Logo Você Sargento" class="logo" />
       <div class="time" id="time">00:30</div>
-      <div class="buttons">
+      <div class="controls">
         <button class="start" id="startBtn">Iniciar</button>
         <button id="pauseBtn">Pausar</button>
         <button id="resetBtn">Resetar</button>
@@ -108,8 +140,9 @@
     const startBtn = document.getElementById("startBtn");
     const pauseBtn = document.getElementById("pauseBtn");
     const resetBtn = document.getElementById("resetBtn");
+    const inputEl = document.getElementById("timeInput");
 
-    let duration = 30; // segundos
+    let duration = 30;
     let remaining = duration;
     let running = false;
     let startTime = null;
@@ -124,7 +157,7 @@
 
     function updateDisplay(progress) {
       const deg = progress * 360;
-      timerEl.style.background = `conic-gradient(var(--accent) ${deg}deg, rgba(255,255,255,0.05) ${deg}deg)`;
+      timerEl.style.background = `conic-gradient(var(--accent) ${deg}deg, var(--ring-bg) ${deg}deg)`;
       timeEl.textContent = formatTime(remaining);
     }
 
@@ -147,29 +180,12 @@
 
     startBtn.addEventListener("click", () => {
       if (running) return;
+      duration = parseInt(inputEl.value) || 30;
+      remaining = duration;
       running = true;
       startTime = null;
+      pausedTime = 0;
       raf = requestAnimationFrame(tick);
     });
 
-    pauseBtn.addEventListener("click", () => {
-      if (!running) return;
-      running = false;
-      cancelAnimationFrame(raf);
-      pausedTime += (performance.now() - startTime) / 1000;
-    });
-
-    resetBtn.addEventListener("click", () => {
-      running = false;
-      cancelAnimationFrame(raf);
-      remaining = duration;
-      startTime = null;
-      pausedTime = 0;
-      updateDisplay(0);
-    });
-
-    updateDisplay(0);
-  </script>
-
-</body>
-</html>
+    pauseBtn.addEvent
