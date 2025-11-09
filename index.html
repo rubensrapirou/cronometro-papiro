@@ -3,10 +3,173 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meu Cronômetro</title>
+  <title>Cronômetro Fênix</title>
+  <style>
+    :root {
+      --size: 300px;           /* tamanho total do cronômetro */
+      --ring-width: 18px;      /* espessura do círculo */
+      --accent: #ff9800;       /* cor principal */
+      --bg: #0c0f17;           /* cor de fundo */
+      --ring-bg: rgba(255,255,255,0.1);
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--bg);
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    .timer {
+      position: relative;
+      width: var(--size);
+      height: var(--size);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: conic-gradient(var(--accent) 0deg, transparent 0deg);
+      transition: background 0.3s linear;
+    }
+
+    .inner {
+      position: absolute;
+      width: calc(var(--size) - var(--ring-width)*2);
+      height: calc(var(--size) - var(--ring-width)*2);
+      background: #1a1f2b;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
+    }
+
+    .logo {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 10px;
+    }
+
+    .time {
+      font-size: 2.2rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .buttons {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .start {
+      border-color: var(--accent);
+    }
+
+  </style>
 </head>
 <body>
-  <h1>Olá, mundo! 🚀</h1>
-  <p>Site funcionando no GitHub Pages!</p>
+
+  <div class="timer" id="timer">
+    <div class="inner">
+      <!-- Troque aqui pela sua logo -->
+      <img src="logo.png" alt="Logo" class="logo" />
+      <div class="time" id="time">00:30</div>
+      <div class="buttons">
+        <button class="start" id="startBtn">Iniciar</button>
+        <button id="pauseBtn">Pausar</button>
+        <button id="resetBtn">Resetar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const timerEl = document.getElementById("timer");
+    const timeEl = document.getElementById("time");
+    const startBtn = document.getElementById("startBtn");
+    const pauseBtn = document.getElementById("pauseBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    let duration = 30; // segundos
+    let remaining = duration;
+    let running = false;
+    let startTime = null;
+    let raf = null;
+    let pausedTime = 0;
+
+    function formatTime(s) {
+      const m = Math.floor(s / 60).toString().padStart(2, '0');
+      const sec = Math.floor(s % 60).toString().padStart(2, '0');
+      return `${m}:${sec}`;
+    }
+
+    function updateDisplay(progress) {
+      const deg = progress * 360;
+      timerEl.style.background = `conic-gradient(var(--accent) ${deg}deg, rgba(255,255,255,0.05) ${deg}deg)`;
+      timeEl.textContent = formatTime(remaining);
+    }
+
+    function tick(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const elapsed = (timestamp - startTime) / 1000 + pausedTime;
+      remaining = Math.max(duration - elapsed, 0);
+      const progress = (duration - remaining) / duration;
+      updateDisplay(progress);
+
+      if (remaining > 0) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        running = false;
+        startTime = null;
+        pausedTime = 0;
+        alert("⏰ Tempo finalizado!");
+      }
+    }
+
+    startBtn.addEventListener("click", () => {
+      if (running) return;
+      running = true;
+      startTime = null;
+      raf = requestAnimationFrame(tick);
+    });
+
+    pauseBtn.addEventListener("click", () => {
+      if (!running) return;
+      running = false;
+      cancelAnimationFrame(raf);
+      pausedTime += (performance.now() - startTime) / 1000;
+    });
+
+    resetBtn.addEventListener("click", () => {
+      running = false;
+      cancelAnimationFrame(raf);
+      remaining = duration;
+      startTime = null;
+      pausedTime = 0;
+      updateDisplay(0);
+    });
+
+    updateDisplay(0);
+  </script>
+
 </body>
 </html>
