@@ -1,232 +1,178 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Você Sargento - Cronômetro de Estudos</title>
-  <link rel="icon" href="logo.png">
-  <style>
-    body {
-      background: radial-gradient(circle at center, #111, #000);
-      color: #fff;
-      font-family: "Poppins", sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-    }
-    header {
-      text-align: center;
-      margin-top: 30px;
-    }
-    header img {
-      width: 150px;
-      border-radius: 50%;
-      background: transparent;
-    }
-    h1 {
-      margin-top: 10px;
-      font-size: 2rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #00ffc8;
-    }
-    .login-container, .app-container {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 30px;
-      border-radius: 20px;
-      margin-top: 40px;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(0, 255, 200, 0.1);
-    }
-    input, button {
-      margin: 10px 0;
-      padding: 10px;
-      width: 90%;
-      border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-    }
-    input {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      text-align: center;
-    }
-    button {
-      cursor: pointer;
-      background: #00ffc8;
-      color: #000;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    button:hover {
-      background: #00bfa5;
-    }
-    .timer {
-      font-size: 3rem;
-      margin: 20px 0;
-      font-weight: bold;
-      color: #00ffc8;
-    }
-    .ranking {
-      margin-top: 20px;
-      text-align: left;
-    }
-    .ranking h2 {
-      text-align: center;
-      color: #00ffc8;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      margin: 5px 0;
-      background: rgba(255,255,255,0.05);
-      padding: 8px 12px;
-      border-radius: 8px;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>VOCÊ SARGENTO — Operação Elite</title>
+<link rel="icon" href="logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg1: #02040a;
+  --bg2: #07152a;
+  --accent: #00bfff;
+  --success: #00ffb3;
+  --warning: #ffcc00;
+  --danger: #ff4d4d;
+  --muted: rgba(255,255,255,0.1);
+}
+* { box-sizing: border-box; font-family: 'Inter', sans-serif; transition: all 0.2s ease; }
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, var(--bg2), var(--bg1));
+  color: #e9f3ff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+.container {
+  width: 1150px;
+  max-width: 98%;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 24px;
+}
+.card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+.logo {
+  width: 140px;
+  display: block;
+  margin: 10px auto;
+}
+h1.title {
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--accent);
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  text-shadow: 0 0 8px rgba(0,191,255,0.6);
+}
+.subtitle {
+  text-align: center;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+label { font-size: 13px; color: #a9bcd6; margin-bottom: 4px; display: block; }
+input {
+  width: 100%; padding: 10px; border-radius: 8px;
+  border: 1px solid var(--muted); background: transparent;
+  color: #e9f3ff; margin-bottom: 10px;
+}
+.btn {
+  border: none; border-radius: 8px; padding: 10px 14px;
+  font-weight: 700; cursor: pointer; font-size: 0.9rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+.btn:hover { transform: scale(1.03); }
+.btn:active { transform: scale(0.97); }
+
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-success { background: var(--success); color: #001a10; }
+.btn-warning { background: var(--warning); color: #111; }
+.btn-danger  { background: var(--danger); color: #fff; }
+.btn-ghost   { background: transparent; border: 1px solid var(--muted); color: #e9f3ff; }
+
+.streak { font-weight: 700; color: var(--accent); text-align: center; margin-bottom: 8px; }
+.meta-box {
+  background: rgba(0,0,0,0.3);
+  border-radius: 8px; padding: 12px;
+  text-align: center; margin-top: 8px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.timer-area { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; align-items: flex-start; }
+.circle {
+  width: 360px; height: 360px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: conic-gradient(var(--accent) 0deg, rgba(255,255,255,0.05) 0deg);
+  box-shadow: 0 0 25px rgba(0,191,255,0.3);
+}
+.inner {
+  width: 310px; height: 310px; border-radius: 50%;
+  background: linear-gradient(180deg,#05101a,#0a1c2f);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.timebig { font-size: 3rem; font-weight: 700; letter-spacing: 1px; color: #fff; text-shadow: 0 0 6px rgba(255,255,255,0.4); }
+.progress {
+  width: 270px; height: 12px; background: rgba(255,255,255,0.08);
+  border-radius: 6px; margin-top: 8px; overflow: hidden;
+}
+.progress > i { display: block; height: 100%; background: var(--accent); width: 0%; transition: width 0.2s; }
+
+.ranking { max-height: 380px; overflow: auto; padding: 4px; }
+.rank-item {
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(255,255,255,0.03);
+  border-radius: 8px; padding: 10px;
+  border: 1px solid rgba(255,255,255,0.05);
+  margin-bottom: 6px;
+}
+.rank-item strong { color: #fff; }
+.rank-item:nth-child(1) { background: linear-gradient(90deg,#ffd70033,#0000); border-color: #ffd70066; }
+.rank-item:nth-child(2) { background: linear-gradient(90deg,#c0c0c033,#0000); border-color: #c0c0c066; }
+.rank-item:nth-child(3) { background: linear-gradient(90deg,#cd7f3233,#0000); border-color: #cd7f3266; }
+
+.small { font-size: 13px; color: rgba(255,255,255,0.7); }
+.muted { font-size: 12px; color: rgba(255,255,255,0.55); }
+@media (max-width: 980px) {
+  .container { grid-template-columns: 1fr; }
+  .circle { width: 300px; height: 300px; }
+  .inner { width: 260px; height: 260px; }
+}
+</style>
 </head>
 <body>
+<div class="container">
+  <div class="card">
+    <img src="logo.png" class="logo" alt="Logo">
+    <h1 class="title">VOCÊ SARGENTO</h1>
+    <div class="subtitle">Disciplina • Constância • Vitória</div>
 
-  <header>
-    <img src="logo.png" alt="Logo">
-    <h1>VOCÊ SARGENTO</h1>
-  </header>
+    <div id="authBox">
+      <label>Usuário</label><input id="username" type="text" placeholder="ex: futurosargento" value="futurosargento">
+      <label>Senha</label><input id="password" type="password" placeholder="senha" value="1234">
+      <div style="display:flex;gap:8px;margin-top:6px">
+        <button id="loginBtn" class="btn btn-primary">Entrar</button>
+        <button id="registerBtn" class="btn btn-ghost">Criar conta</button>
+      </div>
+      <div style="margin-top:10px">
+        <button id="guestBtn" class="btn btn-ghost" style="width:100%">Estudar como convidado</button>
+      </div>
+    </div>
 
-  <div id="login" class="login-container">
-    <h2>Entrar</h2>
-    <input type="text" id="loginNome" placeholder="Usuário (ex: futurosargento)">
-    <input type="password" id="loginSenha" placeholder="Senha">
-    <button id="entrarBtn">Entrar</button>
-    <p>ou</p>
-    <button id="convidadoBtn">Entrar como Convidado</button>
+    <div id="profileBox" style="display:none">
+      <div class="streak" id="streak">📅 Constância: 0 dias</div>
+      <div style="text-align:center;margin-bottom:10px">Bem-vindo, <strong id="welcomeName"></strong></div>
+      <button id="logoutBtn" class="btn btn-ghost" style="width:100%">Sair</button>
+      <div class="meta-box">
+        <div class="small">Meta diária</div>
+        <div id="metaText" style="font-weight:700;margin-top:6px">Nenhuma</div>
+      </div>
+      <div style="margin-top:10px">
+        <button id="setMetaBtn" class="btn btn-primary" style="width:100%">Definir meta</button>
+      </div>
+    </div>
+
+    <div style="margin-top:16px">
+      <div class="small">🏆 Ranking Top 10</div>
+      <div id="sideRanking" class="ranking"></div>
+    </div>
   </div>
 
-  <div id="app" class="app-container" style="display:none;">
-    <h2 id="bemVindo"></h2>
-    <div>
-      <label for="meta">Meta de estudo (horas):</label>
-      <input type="number" id="meta" min="0" placeholder="Ex: 3">
-    </div>
-    <div class="timer" id="timer">00:00:00</div>
-    <button id="startBtn">Iniciar</button>
-    <button id="pauseBtn">Pausar</button>
-    <button id="resetBtn">Zerar</button>
-    <div class="ranking">
-      <h2>🏆 Ranking Top 10</h2>
-      <ul id="rankingLista"></ul>
-    </div>
-  </div>
-
-  <script type="module">
-    // Firebase imports
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-    import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, query, orderBy, limit } 
-      from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } 
-      from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-
-    // Configuração Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyBniRu4I1epvafxttRsdyfDIpUGT63ytsU",
-      authDomain: "voce-sargento.firebaseapp.com",
-      projectId: "voce-sargento",
-      storageBucket: "voce-sargento.appspot.com",
-      messagingSenderId: "144820811065",
-      appId: "1:144820811065:web:fe0f99e9f57947722724e8",
-      measurementId: "G-5F4EXDDPD0"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const auth = getAuth(app);
-
-    const loginDiv = document.getElementById("login");
-    const appDiv = document.getElementById("app");
-    const entrarBtn = document.getElementById("entrarBtn");
-    const convidadoBtn = document.getElementById("convidadoBtn");
-    const timerEl = document.getElementById("timer");
-    const bemVindo = document.getElementById("bemVindo");
-    const rankingLista = document.getElementById("rankingLista");
-
-    let timerInterval;
-    let totalSegundos = 0;
-    let usuarioAtual = "Convidado";
-
-    function formatarTempo(segundos) {
-      const h = String(Math.floor(segundos / 3600)).padStart(2, '0');
-      const m = String(Math.floor((segundos % 3600) / 60)).padStart(2, '0');
-      const s = String(segundos % 60).padStart(2, '0');
-      return `${h}:${m}:${s}`;
-    }
-
-    function atualizarRanking() {
-      const q = query(collection(db, "usuarios"), orderBy("diasConsecutivos", "desc"), limit(10));
-      getDocs(q).then(snapshot => {
-        rankingLista.innerHTML = "";
-        let pos = 1;
-        snapshot.forEach(docSnap => {
-          const data = docSnap.data();
-          const li = document.createElement("li");
-          li.textContent = `#${pos} ${data.nome} — ${data.diasConsecutivos} dias`;
-          rankingLista.appendChild(li);
-          pos++;
-        });
-      });
-    }
-
-    entrarBtn.onclick = async () => {
-      const nome = document.getElementById("loginNome").value.trim();
-      const senha = document.getElementById("loginSenha").value;
-      if (!nome || !senha) return alert("Preencha todos os campos!");
-      try {
-        await signInWithEmailAndPassword(auth, `${nome}@voce-sargento.com`, senha);
-      } catch {
-        await createUserWithEmailAndPassword(auth, `${nome}@voce-sargento.com`, senha);
-        await setDoc(doc(db, "usuarios", nome), { nome, diasConsecutivos: 0 });
-      }
-      usuarioAtual = nome;
-      loginDiv.style.display = "none";
-      appDiv.style.display = "block";
-      bemVindo.textContent = `Bem-vindo, ${nome}!`;
-      atualizarRanking();
-    };
-
-    convidadoBtn.onclick = () => {
-      usuarioAtual = "Convidado";
-      loginDiv.style.display = "none";
-      appDiv.style.display = "block";
-      bemVindo.textContent = "Modo Convidado";
-      atualizarRanking();
-    };
-
-    document.getElementById("startBtn").onclick = () => {
-      if (timerInterval) return;
-      timerInterval = setInterval(() => {
-        totalSegundos++;
-        timerEl.textContent = formatarTempo(totalSegundos);
-      }, 1000);
-    };
-
-    document.getElementById("pauseBtn").onclick = () => {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    };
-
-    document.getElementById("resetBtn").onclick = () => {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      totalSegundos = 0;
-      timerEl.textContent = "00:00:00";
-    };
-
-  </script>
-</body>
-</html>
+  <div class="card">
+    <div class="timer-area">
+      <div class="circle" id="circle"><div class="inner">
+        <div class="timebig" id="timeDisplay">00:00:00</div>
+        <div class="progress"><i id="progressFill"></i></div>
+        <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
+          <input id="hours" type="number" min="0" max="23" placeholder="h" style="width:60px">
+          <input id="minutes" type="number"
