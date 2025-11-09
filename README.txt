@@ -1,1 +1,1 @@
-Voce Sargento v2 - Coloque sua logo como logo.png na raiz antes de subir no GitHub.
+Voce Sargento v4 - Elite. Coloque sua logo como logo.png na raiz antes de subir no GitHub.
