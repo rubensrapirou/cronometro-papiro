@@ -3,15 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Você Sargento - Cronômetro de Estudos</title>
+  <title>VOCÊ SARGENTO - Cronômetro de Estudos</title>
   <style>
-    :root {
-      --size: 320px;
-      --ring-width: 20px;
-      --accent: #d4af37; /* dourado */
-      --bg: #0b0f19;
-      --ring-bg: rgba(255, 255, 255, 0.1);
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
     body {
       margin: 0;
@@ -20,155 +14,170 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: var(--bg);
+      background: radial-gradient(circle at top, #111827, #0b0f19);
       color: white;
-      font-family: "Poppins", sans-serif;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    .logo {
+      width: 160px;
+      margin-bottom: 15px;
+      user-select: none;
     }
 
     .title {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-      color: var(--accent);
+      font-size: 2rem;
+      font-weight: 700;
+      color: #d4af37;
+      text-transform: uppercase;
+      letter-spacing: 2px;
       text-align: center;
+      margin-bottom: 40px;
     }
 
-    .input-container {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .input-container input {
-      width: 60px;
-      padding: 5px;
-      border-radius: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      background: transparent;
-      color: white;
-      text-align: center;
-      font-size: 1rem;
-    }
-
-    .timer {
+    .circle {
       position: relative;
-      width: var(--size);
-      height: var(--size);
+      width: 340px;
+      height: 340px;
       border-radius: 50%;
-      background: conic-gradient(var(--accent) 0deg, var(--ring-bg) 0deg);
+      background: conic-gradient(#d4af37 0deg, rgba(255, 255, 255, 0.1) 0deg);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.3s linear;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
     }
 
     .inner {
       position: absolute;
-      width: calc(var(--size) - var(--ring-width) * 2);
-      height: calc(var(--size) - var(--ring-width) * 2);
-      background: #1a1f2b;
+      width: 300px;
+      height: 300px;
+      background: #111827;
       border-radius: 50%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+      text-align: center;
     }
 
-    .logo {
-      width: 100px;
-      height: auto;
-      margin-bottom: 10px;
+    .meta {
+      font-size: 1rem;
+      color: #d4af37;
+      margin-bottom: 8px;
     }
 
     .time {
-      font-size: 2rem;
+      font-size: 2.5rem;
       font-weight: 600;
-      letter-spacing: 2px;
+      color: #f5f5f5;
+      margin-bottom: 15px;
     }
 
     .controls {
-      margin-top: 15px;
       display: flex;
       gap: 10px;
     }
 
     button {
-      background: none;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: white;
-      padding: 6px 14px;
-      border-radius: 6px;
+      background: transparent;
+      border: 2px solid #d4af37;
+      color: #d4af37;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
       cursor: pointer;
       transition: 0.3s;
     }
 
     button:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: #d4af37;
+      color: #111827;
     }
 
-    .start {
-      border-color: var(--accent);
-      color: var(--accent);
+    .input-container {
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .input-container input {
+      width: 80px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      font-size: 1rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .input-container label {
+      color: #d4af37;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
 
-  <h1 class="title">Cronômetro de Estudos - Você Sargento</h1>
+  <img src="logo.png" alt="Logo Você Sargento" class="logo">
+  <div class="title">VOCÊ SARGENTO</div>
 
   <div class="input-container">
-    <input type="number" id="hours" min="0" max="23" placeholder="h">
-    <input type="number" id="minutes" min="0" max="59" placeholder="min">
-    <input type="number" id="seconds" min="0" max="59" placeholder="s">
+    <div>
+      <label for="hours">Horas</label><br>
+      <input type="number" id="hours" min="0" max="23" placeholder="0">
+    </div>
+    <div>
+      <label for="minutes">Minutos</label><br>
+      <input type="number" id="minutes" min="0" max="59" placeholder="0">
+    </div>
+    <div>
+      <label for="seconds">Segundos</label><br>
+      <input type="number" id="seconds" min="0" max="59" placeholder="0">
+    </div>
   </div>
 
-  <div class="timer" id="timer">
+  <div class="circle" id="circle">
     <div class="inner">
-      <img src="logo.png" alt="Logo Você Sargento" class="logo">
+      <div class="meta" id="meta">META: 00:00:00</div>
       <div class="time" id="time">00:00:00</div>
       <div class="controls">
-        <button class="start" id="startBtn">Iniciar</button>
+        <button id="startBtn">Iniciar</button>
         <button id="pauseBtn">Pausar</button>
         <button id="resetBtn">Resetar</button>
       </div>
     </div>
   </div>
 
-  <audio id="endSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b8b5f1f65.mp3?filename=alarm-clock-short-6402.mp3"></audio>
+  <audio id="alarm" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b8b5f1f65.mp3?filename=alarm-clock-short-6402.mp3"></audio>
 
   <script>
+    const circle = document.getElementById("circle");
     const timeEl = document.getElementById("time");
+    const metaEl = document.getElementById("meta");
     const startBtn = document.getElementById("startBtn");
     const pauseBtn = document.getElementById("pauseBtn");
     const resetBtn = document.getElementById("resetBtn");
-    const timerEl = document.getElementById("timer");
-    const endSound = document.getElementById("endSound");
+    const alarm = document.getElementById("alarm");
 
     let totalSeconds = 0;
     let remaining = 0;
     let interval = null;
     let running = false;
 
-    function formatTime(s) {
-      const h = Math.floor(s / 3600);
-      const m = Math.floor((s % 3600) / 60);
-      const sec = s % 60;
-      return (
-        String(h).padStart(2, "0") +
-        ":" +
-        String(m).padStart(2, "0") +
-        ":" +
-        String(sec).padStart(2, "0")
-      );
+    function formatTime(sec) {
+      const h = Math.floor(sec / 3600);
+      const m = Math.floor((sec % 3600) / 60);
+      const s = sec % 60;
+      return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
     }
 
-    function updateCircle() {
+    function updateDisplay() {
       const progress = (1 - remaining / totalSeconds) * 360;
-      timerEl.style.background = `conic-gradient(var(--accent) ${progress}deg, var(--ring-bg) ${progress}deg)`;
+      circle.style.background = `conic-gradient(#d4af37 ${progress}deg, rgba(255,255,255,0.1) ${progress}deg)`;
       timeEl.textContent = formatTime(remaining);
     }
 
@@ -179,21 +188,22 @@
       const m = parseInt(document.getElementById("minutes").value) || 0;
       const s = parseInt(document.getElementById("seconds").value) || 0;
       totalSeconds = h * 3600 + m * 60 + s;
-
       if (totalSeconds <= 0) return alert("Defina um tempo válido!");
 
       remaining = totalSeconds;
+      metaEl.textContent = "META: " + formatTime(totalSeconds);
       running = true;
 
       interval = setInterval(() => {
         remaining--;
-        updateCircle();
+        updateDisplay();
 
         if (remaining <= 0) {
           clearInterval(interval);
           running = false;
-          endSound.play();
-          alert("⏰ Tempo finalizado! Bom descanso, Sargento!");
+          timeEl.textContent = "00:00:00";
+          alarm.play();
+          alert("⏰ Tempo finalizado! Missão cumprida, Sargento!");
         }
       }, 1000);
     }
@@ -208,14 +218,12 @@
       clearInterval(interval);
       running = false;
       remaining = totalSeconds;
-      updateCircle();
+      updateDisplay();
     }
 
     startBtn.addEventListener("click", startTimer);
     pauseBtn.addEventListener("click", pauseTimer);
     resetBtn.addEventListener("click", resetTimer);
-
-    updateCircle();
   </script>
 </body>
 </html>
