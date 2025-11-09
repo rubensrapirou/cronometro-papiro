@@ -373,21 +373,29 @@ init();
     from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
   // 🔧 COLE SEU CÓDIGO AQUI 👇
+<!-- 🔥 INTEGRAÇÃO FIREBASE -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+  import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, getDocs } 
+    from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } 
+    from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+  // 🔧 Seu Firebase Config
   const firebaseConfig = {
-    apiKey: "SUA_API_KEY_AQUI",
-    authDomain: "SEU_AUTH_DOMAIN",
-    projectId: "SEU_PROJECT_ID",
-    storageBucket: "SEU_BUCKET",
-    messagingSenderId: "SEU_SENDER_ID",
-    appId: "SEU_APP_ID"
+    apiKey: "AIzaSyBniRu4I1epvafxttRsdyfDIpUGT63ytsU",
+    authDomain: "voce-sargento.firebaseapp.com",
+    projectId: "voce-sargento",
+    storageBucket: "voce-sargento.firebasestorage.app",
+    messagingSenderId: "144820811065",
+    appId: "1:144820811065:web:fe0f99e9f57947722724e8",
+    measurementId: "G-5F4EXDDPD0"
   };
 
-  // Inicializando Firebase
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const auth = getAuth(app);
 
-  // 🧠 LÓGICA DE LOGIN
   async function login() {
     const nome = document.getElementById('nome').value.trim();
     const senha = document.getElementById('senha').value.trim();
@@ -399,7 +407,7 @@ init();
     } catch (error) {
       if (error.code === "auth/user-not-found") {
         await createUserWithEmailAndPassword(auth, nome + "@voce-sargento.com", senha);
-        await setDoc(doc(db, "users", nome), { diasSeguidos: 1, totalHoras: 0 });
+        await setDoc(doc(db, "users", nome), { nome, diasSeguidos: 1, totalHoras: 0 });
         iniciarApp(nome);
       } else {
         alert("Erro no login: " + error.message);
@@ -414,12 +422,10 @@ init();
     carregarRanking();
   }
 
-  // 🏆 Ranking Top 10
   async function carregarRanking() {
     const snapshot = await getDocs(collection(db, "users"));
     const users = [];
     snapshot.forEach(docSnap => users.push(docSnap.data()));
-
     users.sort((a, b) => b.diasSeguidos - a.diasSeguidos);
     const top10 = users.slice(0, 10);
 
@@ -432,16 +438,15 @@ init();
     `).join(""));
   }
 
-  // 🟡 Modo Convidado
   function modoConvidado() {
     document.getElementById("login-screen").style.display = "none";
     document.getElementById("app-screen").style.display = "block";
     document.getElementById("bemvindo").textContent = "Modo Convidado";
     carregarRanking();
   }
-
 </script>
 <!-- 🔥 FIM INTEGRAÇÃO FIREBASE -->
+
 
 </script>
 </body>
