@@ -8,266 +8,131 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg1: #000000;           /* fundo preto */
-  --bg2: #121212;           /* cinza muito escuro */
-  --accent: #d4af37;        /* dourado clássico */
-  --success: #a5b466;       /* verde suave */
-  --warning: #c68e17;       /* amarelo queimado */
-  --danger: #b25e28;        /* cobre escuro */
-  --muted: rgba(255,255,255,0.15);
-}
-* {
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
-  transition: all 0.25s ease;
+  --bg1: #000;
+  --bg2: #191919;
+  --accent: #ffd700;
+  --success: #65cc8f;
+  --warning: #ffd84f;
+  --danger: #ee663f;
+  --muted: rgba(255,255,255,0.08);
 }
 body {
   margin: 0;
-  background: radial-gradient(circle at center, var(--bg2), var(--bg1));
-  color: #f5f2dc;
+  background: radial-gradient(ellipse at top center, var(--bg2), var(--bg1) 85%);
+  color: #fffbe8;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
+  font-family: 'Inter',sans-serif;
+  display: flex; align-items: center; justify-content: center;
 }
 .container {
-  width: 1100px;
-  max-width: 98%;
+  width: 1050px;
+  max-width: 99%;
+  margin: 40px auto;
   display: grid;
   grid-template-columns: 360px 1fr;
-  gap: 28px;
+  gap: 30px;
 }
 .card {
-  background: #1a1a1a;
-  border-radius: 14px;
-  padding: 24px;
-  box-shadow: 0 4px 15px rgba(212,175,55,0.5);
-  border: 2px solid var(--accent);
+  background: rgba(28,28,28,0.95);
+  border-radius: 22px;
+  padding: 32px 26px 24px 26px;
+  box-shadow: 0 4px 34px 0 #231c102e, 0 0 0 2px var(--accent);
+  position: relative;
 }
-.logo {
-  width: 160px;
-  display: block;
-  margin: 0 auto 14px auto;
-  filter: drop-shadow(0 0 2px var(--accent));
-}
+.logo { width: 140px; display:block; margin:0 auto 4px auto; filter:drop-shadow(0 0 4px var(--accent)); }
 h1.title {
   font-family: 'Orbitron', sans-serif;
-  font-weight: 700;
-  font-size: 2rem;
-  color: var(--accent);
-  text-align: center;
-  margin-bottom: 8px;
-  text-shadow: 0 0 10px var(--accent);
+  font-weight: 800;
+  font-size: 2.4rem;
+  text-align: center; color: var(--accent);
+  margin: 0 0 8px 0;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 18px var(--accent), 0 0 8px #000;
 }
 .subtitle {
   text-align: center;
-  font-weight: 600;
-  font-size: 1rem;
-  color: #ddd4a0;
-  margin-bottom: 16px;
-  font-style: italic;
-}
-label {
-  font-size: 14px;
-  color: #ccc49f;
-  margin-bottom: 6px;
-  display: block;
-  font-weight: 600;
-}
-input {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid var(--muted);
-  background: #222;
-  color: var(--accent);
-  font-size: 1rem;
-  margin-bottom: 12px;
-  font-weight: 600;
-  box-shadow: inset 0 0 8px #9e8c2e;
-}
-input::placeholder {
-  color: #6c5e18;
-  font-weight: 400;
-}
-.btn {
-  border: none;
-  border-radius: 12px;
-  padding: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 1rem;
-  box-shadow: 0 0 10px rgba(212,175,55,0.6);
-  user-select: none;
-  margin-top: 8px;
-}
-.btn:hover {
-  filter: brightness(1.2);
-  transform: scale(1.05);
-}
-.btn:active {
-  transform: scale(0.97);
-  filter: brightness(0.9);
-}
-.btn-primary {
-  background: var(--accent);
-  color: #121212;
-  letter-spacing: 0.03em;
-}
-.btn-success {
-  background: var(--success);
-  color: #242a1a;
-}
-.btn-warning {
-  background: var(--warning);
-  color: #372b06;
-}
-.btn-danger {
-  background: var(--danger);
-  color: #3a1f0c;
-}
-.btn-ghost {
-  background: transparent;
-  border: 2px solid var(--muted);
-  color: var(--accent);
-  font-weight: 600;
-}
-.streak {
-  font-weight: 800;
-  color: var(--accent);
-  text-align: center;
-  margin-bottom: 10px;
+  color: #fff7ca;
   font-size: 1.1rem;
-  letter-spacing: 0.05em;
-  text-shadow: 0 0 6px var(--accent);
+  margin-bottom: 22px;
 }
+label { font-size: 15px; color: #ffd84fbb; margin-bottom: 6px; display: block; }
+input {
+  width: 100%; padding: 12px; border-radius: 9px;
+  border: 1.5px solid var(--muted); background: #191715;
+  color: var(--accent); font-weight: 700;
+  font-size: 1.03rem;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 7px 0 #ffd70014 inset;
+}
+input::placeholder { color: #a3822a; font-weight: 400; font-style: italic;}
+.btn {
+  border: none; border-radius: 9px; padding: 11px 0;
+  font-weight: 800; cursor:pointer; font-size: 1.04rem;
+  letter-spacing: 0.03em; width:49%; min-width: 99px;
+  box-shadow: 0 0 6px #ffd70052;
+  opacity:.97; transition:.25s;
+}
+.btn-primary { background: var(--accent); color:#18120a; }
+.btn-ghost   { background: transparent; border: 1.6px solid var(--accent); color: var(--accent); }
+.btn-success { background: var(--success); color:#112; }
+.btn-warning { background: var(--warning); color:#222; }
+.btn-danger  { background: var(--danger); color:#fff; }
+.btn:hover { filter:brightness(1.17) drop-shadow(0 0 7px var(--accent)); opacity:1; transform:scale(1.04);}
+.btn:active { filter:brightness(.95); opacity:.92; }
+.streak { margin: 0 0 15px 0; font-weight: 800; color:var(--accent); text-align: center; font-family:'Orbitron',sans-serif; }
 .meta-box {
-  background: #2b2b2b;
-  border-radius: 12px;
-  padding: 16px;
-  text-align: center;
-  margin-top: 14px;
-  border: 1px solid #5a511d;
-  color: #d8cc7c;
-  font-weight: 600;
-  font-size: 1rem;
+  background: #18120a;
+  border-radius: 11px; padding: 14px 10px;
+  text-align:center; margin-top:8px;
+  border:1.5px solid #ffd70066; color:#ffe277; font-size:1.09rem;font-weight:700;
 }
-.timer-area {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  align-items: flex-start;
-}
-.circle {
-  width: 360px;
-  height: 360px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* gold background wedge */
-  background: conic-gradient(var(--accent) 0deg, rgba(212,175,55,0.12) 0deg);
-  box-shadow: 0 0 30px var(--accent);
-}
-.inner {
-  width: 320px;
-  height: 320px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #292919, #1a1714);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: inset 0 0 24px rgba(212,175,55,0.6);
-}
-.timebig {
-  font-size: 3.5rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  color: var(--accent);
-  text-shadow: 0 0 10px var(--accent);
-  font-family: 'Orbitron', sans-serif;
-}
-.progress {
-  width: 275px;
-  height: 14px;
-  background: rgba(212,175,55,0.12);
-  border-radius: 8px;
-  margin-top: 12px;
-  overflow: hidden;
-  box-shadow: inset 0 0 16px rgba(212,175,55,0.4);
-}
-.progress > i {
-  display: block;
-  height: 100%;
-  background: var(--accent);
-  width: 0%;
-  transition: width 0.3s ease-in-out;
-  box-shadow: 0 0 15px var(--accent);
-}
-.ranking {
-  max-height: 390px;
-  overflow-y: auto;
-  padding: 6px;
-  border: 1px solid #664d0e;
-  border-radius: 10px;
-  background: #1a1a1a;
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--accent);
+.ranking, .ranking-main {
+  max-height: 314px; overflow:auto; padding:3px;
+  border-radius:9px;
+  background: #18150aee;
+  font-size:1.05rem; color:var(--accent);
 }
 .rank-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #282828;
-  border-radius: 10px;
-  padding: 12px 16px;
-  margin-bottom: 10px;
-  box-shadow: 0 0 12px rgba(212,175,55,0.5);
-  transition: background 0.3s ease;
+  display:flex; justify-content: space-between; align-items: center;
+  background:#191208; border-radius:10px; padding:9px 15px; margin-bottom:7px;
+  border:1.2px solid #ffd70033;
+  box-shadow:0 0 6px #ffd70023;
+  font-weight:700;
 }
-.rank-item strong {
-  color: var(--accent);
+.rank-item strong { color:var(--accent);}
+.rank-item:nth-child(1) { background: linear-gradient(93deg,#ffd70033  70%,#1b1a11 100%); border-color:#ffd70060;}
+.rank-item:nth-child(2) { background: linear-gradient(93deg,#ecba3b21 70%,#1b1a11 100%);}
+.rank-item:nth-child(3) { background: linear-gradient(93deg,#e6bb7c18 70%,#1b1a11 100%);}
+.timer-area { display:flex; flex-wrap:wrap; gap:18px; justify-content:center; align-items:flex-start; }
+.circle {
+  width:360px;height:360px; border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle 100px,#ffd70034 62%,#1a1508 80%,#ffd70022);box-shadow:0 2px 36px #ffd70030;
+  position:relative;
+  border:3px solid #ffd70066;
 }
-.rank-item:nth-child(1) {
-  background: linear-gradient(90deg, #ffd70055, #00000000);
-  border-color: #ffd70077;
-  box-shadow: 0 0 20px #ffd700bb;
+.inner {
+  width:306px;height:306px;border-radius:50%;
+  background: linear-gradient(145deg,#18120a 70%,#232015 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow: 0 0 27px #ffd70042 inset;
 }
-.rank-item:nth-child(2) {
-  background: linear-gradient(90deg, #c0c0c033, #00000000);
-  border-color: #c0c0c055;
-  box-shadow: 0 0 14px #c0c0c0aa;
-}
-.rank-item:nth-child(3) {
-  background: linear-gradient(90deg, #cd7f3233, #00000000);
-  border-color: #cd7f3266;
-  box-shadow: 0 0 16px #cd7f3299;
-}
-.small {
-  font-size: 0.85rem;
-  color: #bcaa5d;
-}
-.muted {
-  font-size: 0.75rem;
-  color: #7a6b1e;
+.timebig { font-size:3rem; font-weight:900; letter-spacing:1.8px; color:var(--accent); font-family:'Orbitron',sans-serif; text-shadow: 0px 0px 21px #ffd70099; }
+.progress {
+  width:252px;height:14px; background:rgba(255,215,0,0.12);
+  border-radius: 7px; margin-top: 4px; overflow: hidden; box-shadow: 0 0 8px #ffd70025; }
+.progress > i { display: block; height: 100%; background: var(--accent); width:0%; transition: width .3s; box-shadow:0 0 20px var(--accent);}
+input[type="number"] {
+  padding:8.5px; font-size:.98rem; color:var(--accent); text-align:center;
+  width:60px; border:1.3px solid var(--muted); border-radius:7px; background:#201900; margin:2.5px;
 }
 @media (max-width: 980px) {
-  .container {
-    grid-template-columns: 1fr;
-  }
-  .circle {
-    width: 300px;
-    height: 300px;
-  }
-  .inner {
-    width: 260px;
-    height: 260px;
-  }
+  .container { grid-template-columns: 1fr; }
+  .circle { width:297px; height:297px;}
+  .inner { width:242px; height:242px;}
 }
+::-webkit-scrollbar {width:.75em;background:transparent;}
+::-webkit-scrollbar-thumb {background: #ffd70033; border-radius:1em;}
 </style>
 </head>
 <body>
@@ -276,110 +141,62 @@ input::placeholder {
     <img src="logo.png" class="logo" alt="Logo" />
     <h1 class="title">VOCÊ SARGENTO</h1>
     <div class="subtitle">Disciplina • Constância • Vitória</div>
-
     <div id="authBox">
       <label for="username">Usuário</label>
       <input id="username" type="text" placeholder="Digite seu usuário" autocomplete="off" />
       <label for="password">Senha</label>
       <input id="password" type="password" placeholder="Digite sua senha" autocomplete="off" />
-      <div style="display:flex;gap:12px;margin-top:12px">
+      <div style="display:flex;gap:11px;margin-top:10px">
         <button id="loginBtn" class="btn btn-primary">Entrar</button>
         <button id="registerBtn" class="btn btn-ghost">Criar conta</button>
       </div>
-      <div style="margin-top:16px">
-        <button id="guestBtn" class="btn btn-ghost" style="width:100%">
-          Estudar como convidado
-        </button>
+      <div style="margin-top:13px">
+        <button id="guestBtn" class="btn btn-ghost" style="width:100%">Estudar como convidado</button>
       </div>
     </div>
     <div id="profileBox" style="display:none">
       <div class="streak" id="streak">📅 Constância: 0 dias</div>
-      <div style="text-align:center;margin-bottom:10px">
-        Bem-vindo, <strong id="welcomeName"></strong>
-      </div>
+      <div style="text-align:center;margin-bottom:10px">Bem-vindo, <strong id="welcomeName"></strong></div>
       <button id="logoutBtn" class="btn btn-ghost" style="width:100%">Sair</button>
       <div class="meta-box">
         <div class="small">Meta diária</div>
         <div id="metaText" style="font-weight:700;margin-top:6px;">Nenhuma</div>
       </div>
       <div style="margin-top:10px">
-        <button id="setMetaBtn" class="btn btn-primary" style="width:100%">
-          Definir meta
-        </button>
+        <button id="setMetaBtn" class="btn btn-primary" style="width:100%">Definir meta</button>
       </div>
     </div>
+    <div style="margin-top:19px">
+      <div class="small">🏆 Ranking Top 10</div>
+      <div id="sideRanking" class="ranking"></div>
+    </div>
   </div>
-
   <div class="card">
     <div class="timer-area">
       <div class="circle" id="circle">
         <div class="inner">
           <div class="timebig" id="timeDisplay">00:00:00</div>
           <div class="progress"><i id="progressFill"></i></div>
-          <div
-            style="
-              margin-top: 10px;
-              display: flex;
-              gap: 6px;
-              flex-wrap: wrap;
-              justify-content: center;
-            "
-          >
-            <input
-              id="hours"
-              type="number"
-              min="0"
-              max="23"
-              placeholder="h"
-              style="width: 60px"
-            />
-            <input
-              id="minutes"
-              type="number"
-              min="0"
-              max="59"
-              placeholder="min"
-              style="width: 60px"
-            />
-            <input
-              id="seconds"
-              type="number"
-              min="0"
-              max="59"
-              placeholder="s"
-              style="width: 60px"
-            />
+          <div style="margin-top:8px;display:flex;gap:7px;flex-wrap:wrap;justify-content:center;">
+            <input id="hours" type="number" min="0" max="23" placeholder="h" />
+            <input id="minutes" type="number" min="0" max="59" placeholder="min" />
+            <input id="seconds" type="number" min="0" max="59" placeholder="s" />
           </div>
-          <div class="controls" style="margin-top: 12px">
+          <div class="controls" style="margin-top:10px">
             <button id="startBtn" class="btn btn-success">Iniciar</button>
             <button id="pauseBtn" class="btn btn-warning">Pausar</button>
             <button id="resetBtn" class="btn btn-danger">Resetar</button>
           </div>
-          <div
-            id="motivation"
-            class="small"
-            style="margin-top: 12px; text-align: center"
-          >
-            Foco total, Sargento!
-          </div>
+          <div id="motivation" class="small" style="margin-top:14px;text-align:center">Foco total, Sargento!</div>
         </div>
       </div>
-
-      <div style="flex: 1; min-width: 260px">
-        <div class="card" style="padding: 12px">
-          <div
-            style="
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-            "
-          >
-            <div style="font-weight: 700">Ranking — Top 10</div>
-            <div class="small"
-              >Total: <span id="totalUsers">0</span></div
-            >
+      <div style="flex:1;min-width:230px">
+        <div class="card" style="padding:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <div style="font-weight:700">Ranking — Top 10</div>
+            <div class="small">Total: <span id="totalUsers">0</span></div>
           </div>
-          <div id="mainRanking" class="ranking" style="margin-top: 8px"></div>
+          <div id="mainRanking" class="ranking ranking-main"></div>
         </div>
       </div>
     </div>
@@ -387,10 +204,9 @@ input::placeholder {
 </div>
 <script type="module">
 document.addEventListener("DOMContentLoaded", () => {
-  // ...todo seu código firebase, controles e funções aqui...
-});
-</script>
-  const firebaseConfig = {
+
+// Firebase Config
+const firebaseConfig = {
   apiKey: "AIzaSyBniRu4I1epvafxttRsdyfDIpUGT63ytsU",
   authDomain: "voce-sargento.firebaseapp.com",
   projectId: "voce-sargento",
@@ -419,45 +235,22 @@ import {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Helper
 const $ = id => document.getElementById(id);
 
-const loginBtn = $('loginBtn'),
-  registerBtn = $('registerBtn'),
-  guestBtn = $('guestBtn');
-const logoutBtn = $('logoutBtn'),
-  setMetaBtn = $('setMetaBtn');
-const authBox = $('authBox'),
-  profileBox = $('profileBox');
-const usernameInput = $('username'),
-  passwordInput = $('password');
-const welcomeName = $('welcomeName'),
-  streakEl = $('streak'),
-  metaText = $('metaText');
-const timeDisplay = $('timeDisplay'),
-  startBtn = $('startBtn'),
-  pauseBtn = $('pauseBtn'),
-  resetBtn = $('resetBtn');
-const hoursInput = $('hours'),
-  minutesInput = $('minutes'),
-  secondsInput = $('seconds');
-const progressFill = $('progressFill'),
-  mainRanking = $('mainRanking'),
-  sideRanking = $('sideRanking'),
-  totalUsers = $('totalUsers');
-
-let currentUser = null,
-  interval = null,
-  running = false,
-  totalSeconds = 0,
-  remaining = 0;
+const loginBtn = $('loginBtn'), registerBtn = $('registerBtn'), guestBtn = $('guestBtn');
+const logoutBtn = $('logoutBtn'), setMetaBtn = $('setMetaBtn');
+const authBox = $('authBox'), profileBox = $('profileBox');
+const usernameInput = $('username'), passwordInput = $('password');
+const welcomeName = $('welcomeName'), streakEl = $('streak'), metaText = $('metaText');
+const timeDisplay = $('timeDisplay'), startBtn = $('startBtn'), pauseBtn = $('pauseBtn'), resetBtn = $('resetBtn');
+const hoursInput = $('hours'), minutesInput = $('minutes'), secondsInput = $('seconds');
+const progressFill = $('progressFill'), mainRanking = $('mainRanking'), sideRanking = $('sideRanking'), totalUsers = $('totalUsers');
+let currentUser = null, interval = null, running = false, totalSeconds = 0, remaining = 0;
 
 async function hashPassword(pw) {
   const enc = new TextEncoder();
   const hashBuffer = await crypto.subtle.digest('SHA-256', enc.encode(pw));
-  return Array.from(new Uint8Array(hashBuffer))
-    .map(b => b.toString(16).padStart(2, '0'))
-    .join('');
+  return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
 async function registerUser() {
@@ -468,13 +261,7 @@ async function registerUser() {
   const snap = await getDoc(ref);
   if (snap.exists()) return alert('Usuário já existe');
   const pwHash = await hashPassword(password);
-  await setDoc(ref, {
-    username,
-    pwHash,
-    streak: 0,
-    lastStudy: null,
-    sessions: 0
-  });
+  await setDoc(ref, { username, pwHash, streak: 0, lastStudy: null, sessions: 0 });
   alert('Conta criada. Faça login.');
 }
 
@@ -488,13 +275,9 @@ async function loginUser() {
   const data = snap.data();
   const hash = await hashPassword(password);
   if (hash !== data.pwHash) return alert('Senha incorreta');
-  currentUser = {
-    username,
-    ...data
-  };
+  currentUser = { username, ...data };
   localStorage.setItem('vs_user', username);
-  showProfile();
-  fetchRanking();
+  showProfile(); fetchRanking();
 }
 
 loginBtn.onclick = loginUser;
@@ -513,98 +296,62 @@ logoutBtn.onclick = () => {
   profileBox.style.display = 'none';
 };
 function showProfile() {
-  authBox.style.display = 'none';
-  profileBox.style.display = 'block';
+  authBox.style.display = 'none'; profileBox.style.display = 'block';
   welcomeName.textContent = currentUser.username;
   streakEl.textContent = '📅 Constância: ' + (currentUser.streak || 0) + ' dias';
 }
 function formatTime(sec) {
-  const h = Math.floor(sec / 3600),
-    m = Math.floor((sec % 3600) / 60),
-    s = sec % 60;
+  const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
   return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 }
-
 startBtn.onclick = () => {
   if (running) return;
-  const h = parseInt(hoursInput.value) || 0,
-    m = parseInt(minutesInput.value) || 0,
-    s = parseInt(secondsInput.value) || 0;
+  const h = parseInt(hoursInput.value) || 0, m = parseInt(minutesInput.value) || 0, s = parseInt(secondsInput.value) || 0;
   totalSeconds = h * 3600 + m * 60 + s;
   if (totalSeconds <= 0) return alert('Defina um tempo válido');
-  remaining = totalSeconds;
-  running = true;
+  remaining = totalSeconds; running = true;
   interval = setInterval(async () => {
     remaining--;
     progressFill.style.width = `${(1 - remaining / totalSeconds) * 100}%`;
     timeDisplay.textContent = formatTime(remaining);
     if (remaining <= 0) {
-      clearInterval(interval);
-      running = false;
+      clearInterval(interval); running = false;
       alert('Sessão concluída!');
       if (currentUser) {
         const ref = doc(db, 'users', currentUser.username);
-        const snap = await getDoc(ref);
-        const data = snap.data();
+        const snap = await getDoc(ref); const data = snap.data();
         let streak = data.streak || 0;
         const today = new Date().toDateString();
         const last = data.lastStudy ? new Date(data.lastStudy).toDateString() : null;
         if (last === today) return;
         if (last) {
-          const diff = Math.round(
-            (new Date(today) - new Date(last)) / (1000 * 60 * 60 * 24)
-          );
-          if (diff === 1) streak++;
-          else streak = 1;
+          const diff = Math.round((new Date(today) - new Date(last)) / (1000 * 60 * 60 * 24));
+          if (diff === 1) streak++; else streak = 1;
         } else streak = 1;
-        await updateDoc(ref, {
-          streak,
-          lastStudy: new Date().toISOString(),
-          sessions: (data.sessions || 0) + 1
-        });
-        fetchRanking();
-        showProfile();
+        await updateDoc(ref, { streak, lastStudy: new Date().toISOString(), sessions: (data.sessions || 0) + 1 });
+        fetchRanking(); showProfile();
       }
     }
   }, 1000);
 };
-pauseBtn.onclick = () => {
-  if (!running) return;
-  clearInterval(interval);
-  running = false;
-};
-resetBtn.onclick = () => {
-  clearInterval(interval);
-  running = false;
-  progressFill.style.width = '0%';
-  timeDisplay.textContent = '00:00:00';
-};
+pauseBtn.onclick = () => { if (!running) return; clearInterval(interval); running = false; };
+resetBtn.onclick = () => { clearInterval(interval); running = false; progressFill.style.width = '0%'; timeDisplay.textContent = '00:00:00'; };
 
 async function fetchRanking() {
   const q = query(collection(db, 'users'), orderBy('streak', 'desc'), limit(50));
-  const snaps = await getDocs(q);
-  let list = [];
-  snaps.forEach(s => {
-    const d = s.data();
-    list.push({
-      username: d.username || s.id,
-      streak: d.streak || 0,
-      sessions: d.sessions || 0
-    });
-  });
-  totalUsers.textContent = list.length;
-  mainRanking.innerHTML = '';
-  sideRanking.innerHTML = '';
+  const snaps = await getDocs(q); let list = [];
+  snaps.forEach(s => { const d = s.data(); list.push({ username: d.username || s.id, streak: d.streak || 0, sessions: d.sessions || 0 }); });
+  totalUsers.textContent = list.length; mainRanking.innerHTML = ''; sideRanking.innerHTML = '';
   list.slice(0, 10).forEach((u, idx) => {
-    const div = document.createElement('div');
-    div.className = 'rank-item';
+    const div = document.createElement('div'); div.className = 'rank-item';
     div.innerHTML = `<div><strong>${idx + 1}. ${u.username}</strong><div class='small'>${u.sessions} sessões</div></div><div style='font-weight:700'>${u.streak} dias</div>`;
-    mainRanking.appendChild(div);
-    sideRanking.appendChild(div.cloneNode(true));
+    mainRanking.appendChild(div); sideRanking.appendChild(div.cloneNode(true));
   });
 }
 fetchRanking();
 setInterval(fetchRanking, 20000);
+
+}); // FIM do DOMContentLoaded
 </script>
 </body>
 </html>
