@@ -175,4 +175,122 @@ input {
         <div class="progress"><i id="progressFill"></i></div>
         <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
           <input id="hours" type="number" min="0" max="23" placeholder="h" style="width:60px">
-          <input id="minutes" type="number"
+          <input id="minutes" type="number" min="0" max="59" placeholder="min" style="width:60px">
+          <input id="seconds" type="number" min="0" max="59" placeholder="s" style="width:60px">
+        </div>
+        <div class="controls" style="margin-top:12px">
+          <button id="startBtn" class="btn btn-success">Iniciar</button>
+          <button id="pauseBtn" class="btn btn-warning">Pausar</button>
+          <button id="resetBtn" class="btn btn-danger">Resetar</button>
+        </div>
+        <div id="motivation" class="small" style="margin-top:12px;text-align:center">Foco total, Sargento!</div>
+      </div></div>
+
+      <div style="flex:1;min-width:260px">
+        <div class="card" style="padding:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:700">Ranking — Top 10</div>
+            <div class="small">Total: <span id="totalUsers">0</span></div>
+          </div>
+          <div id="mainRanking" class="ranking" style="margin-top:8px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+// Firebase Config
+const firebaseConfig = {
+  apiKey: "AIzaSyBniRu4I1epvafxttRsdyfDIpUGT63ytsU",
+  authDomain: "voce-sargento.firebaseapp.com",
+  projectId: "voce-sargento",
+  storageBucket: "voce-sargento.firebasestorage.app",
+  messagingSenderId: "144820811065",
+  appId: "1:144820811065:web:fe0f99e9f57947722724e8",
+  measurementId: "G-5F4EXDDPD0"
+};
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Helper
+const $ = id => document.getElementById(id);
+const loginBtn=$('loginBtn'),registerBtn=$('registerBtn'),guestBtn=$('guestBtn');
+const logoutBtn=$('logoutBtn'),setMetaBtn=$('setMetaBtn');
+const authBox=$('authBox'),profileBox=$('profileBox');
+const usernameInput=$('username'),passwordInput=$('password');
+const welcomeName=$('welcomeName'),streakEl=$('streak'),metaText=$('metaText');
+const timeDisplay=$('timeDisplay'),startBtn=$('startBtn'),pauseBtn=$('pauseBtn'),resetBtn=$('resetBtn');
+const hoursInput=$('hours'),minutesInput=$('minutes'),secondsInput=$('seconds');
+const progressFill=$('progressFill'),mainRanking=$('mainRanking'),sideRanking=$('sideRanking'),totalUsers=$('totalUsers');
+let currentUser=null,interval=null,running=false,totalSeconds=0,remaining=0;
+
+async function hashPassword(pw){const enc=new TextEncoder();const hashBuffer=await crypto.subtle.digest('SHA-256',enc.encode(pw));return Array.from(new Uint8Array(hashBuffer)).map(b=>b.toString(16).padStart(2,'0')).join('');}
+
+async function registerUser(){
+ const username=usernameInput.value.trim().toLowerCase();
+ const password=passwordInput.value;
+ if(!username)return alert('Digite um usuário');
+ const ref=doc(db,'users',username);
+ const snap=await getDoc(ref);
+ if(snap.exists())return alert('Usuário já existe');
+ const pwHash=await hashPassword(password);
+ await setDoc(ref,{username,pwHash,streak:0,lastStudy:null,sessions:0});
+ alert('Conta criada. Faça login.');
+}
+
+async function loginUser(){
+ const username=usernameInput.value.trim().toLowerCase();
+ const password=passwordInput.value;
+ if(!username)return alert('Digite usuário');
+ const ref=doc(db,'users',username);
+ const snap=await getDoc(ref);
+ if(!snap.exists())return alert('Usuário não encontrado.');
+ const data=snap.data();
+ const hash=await hashPassword(password);
+ if(hash!==data.pwHash)return alert('Senha incorreta');
+ currentUser={username,...data};
+ localStorage.setItem('vs_user',username);
+ showProfile();fetchRanking();
+}
+loginBtn.onclick=loginUser;
+registerBtn.onclick=registerUser;
+guestBtn.onclick=()=>{currentUser=null;localStorage.removeItem('vs_user');authBox.style.display='none';profileBox.style.display='none';fetchRanking();};
+logoutBtn.onclick=()=>{currentUser=null;localStorage.removeItem('vs_user');authBox.style.display='block';profileBox.style.display='none';};
+function showProfile(){authBox.style.display='none';profileBox.style.display='block';welcomeName.textContent=currentUser.username;streakEl.textContent='📅 Constância: '+(currentUser.streak||0)+' dias';}
+function formatTime(sec){const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;}
+
+startBtn.onclick=()=>{
+ if(running)return;
+ const h=parseInt(hoursInput.value)||0,m=parseInt(minutesInput.value)||0,s=parseInt(secondsInput.value)||0;
+ totalSeconds=h*3600+m*60+s;
+ if(totalSeconds<=0)return alert('Defina um tempo válido');
+ remaining=totalSeconds;running=true;
+ interval=setInterval(async()=>{
+  remaining--;
+  progressFill.style.width=`${(1-remaining/totalSeconds)*100}%`;
+  timeDisplay.textContent=formatTime(remaining);
+  if(remaining<=0){clearInterval(interval);running=false;alert('Sessão concluída!');if(currentUser){const ref=doc(db,'users',currentUser.username);const snap=await getDoc(ref);const data=snap.data();let streak=data.streak||0;const today=new Date().toDateString();const last=data.lastStudy?new Date(data.lastStudy).toDateString():null;if(last===today)return;if(last){const diff=Math.round((new Date(today)-new Date(last))/(1000*60*60*24));if(diff===1)streak++;else streak=1;}else streak=1;await updateDoc(ref,{streak,lastStudy:new Date().toISOString(),sessions:(data.sessions||0)+1});fetchRanking();showProfile();}}
+ },1000);
+};
+pauseBtn.onclick=()=>{if(!running)return;clearInterval(interval);running=false;};
+resetBtn.onclick=()=>{clearInterval(interval);running=false;progressFill.style.width='0%';timeDisplay.textContent='00:00:00';};
+
+async function fetchRanking(){
+ const q=query(collection(db,'users'),orderBy('streak','desc'),limit(50));
+ const snaps=await getDocs(q);let list=[];
+ snaps.forEach(s=>{const d=s.data();list.push({username:d.username||s.id,streak:d.streak||0,sessions:d.sessions||0});});
+ totalUsers.textContent=list.length;mainRanking.innerHTML='';sideRanking.innerHTML='';
+ list.slice(0,10).forEach((u,idx)=>{
+   const div=document.createElement('div');div.className='rank-item';
+   div.innerHTML=`<div><strong>${idx+1}. ${u.username}</strong><div class='small'>${u.sessions} sessões</div></div><div style='font-weight:700'>${u.streak} dias</div>`;
+   mainRanking.appendChild(div);sideRanking.appendChild(div.cloneNode(true));
+ });
+}
+fetchRanking();
+setInterval(fetchRanking,20000);
+</script>
+</body>
+</html>
