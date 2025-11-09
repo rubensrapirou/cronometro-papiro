@@ -260,7 +260,7 @@ registerBtn.onclick=registerUser;
 guestBtn.onclick=()=>{currentUser=null;localStorage.removeItem('vs_user');authBox.style.display='none';profileBox.style.display='none';fetchRanking();};
 logoutBtn.onclick=()=>{currentUser=null;localStorage.removeItem('vs_user');authBox.style.display='block';profileBox.style.display='none';};
 function showProfile(){authBox.style.display='none';profileBox.style.display='block';welcomeName.textContent=currentUser.username;streakEl.textContent='📅 Constância: '+(currentUser.streak||0)+' dias';}
-function formatTime(sec){const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;}
+function formatTime(sec){const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;return \`\${String(h).padStart(2,'0')}:\${String(m).padStart(2,'0')}:\${String(s).padStart(2,'0')}\`;}
 
 startBtn.onclick=()=>{
  if(running)return;
@@ -270,7 +270,7 @@ startBtn.onclick=()=>{
  remaining=totalSeconds;running=true;
  interval=setInterval(async()=>{
   remaining--;
-  progressFill.style.width=`${(1-remaining/totalSeconds)*100}%`;
+  progressFill.style.width=\`\${(1-remaining/totalSeconds)*100}%\`;
   timeDisplay.textContent=formatTime(remaining);
   if(remaining<=0){clearInterval(interval);running=false;alert('Sessão concluída!');if(currentUser){const ref=doc(db,'users',currentUser.username);const snap=await getDoc(ref);const data=snap.data();let streak=data.streak||0;const today=new Date().toDateString();const last=data.lastStudy?new Date(data.lastStudy).toDateString():null;if(last===today)return;if(last){const diff=Math.round((new Date(today)-new Date(last))/(1000*60*60*24));if(diff===1)streak++;else streak=1;}else streak=1;await updateDoc(ref,{streak,lastStudy:new Date().toISOString(),sessions:(data.sessions||0)+1});fetchRanking();showProfile();}}
  },1000);
@@ -285,7 +285,7 @@ async function fetchRanking(){
  totalUsers.textContent=list.length;mainRanking.innerHTML='';sideRanking.innerHTML='';
  list.slice(0,10).forEach((u,idx)=>{
    const div=document.createElement('div');div.className='rank-item';
-   div.innerHTML=`<div><strong>${idx+1}. ${u.username}</strong><div class='small'>${u.sessions} sessões</div></div><div style='font-weight:700'>${u.streak} dias</div>`;
+   div.innerHTML=\`<div><strong>\${idx+1}. \${u.username}</strong><div class='small'>\${u.sessions} sessões</div></div><div style='font-weight:700'>\${u.streak} dias</div>\`;
    mainRanking.appendChild(div);sideRanking.appendChild(div.cloneNode(true));
  });
 }
