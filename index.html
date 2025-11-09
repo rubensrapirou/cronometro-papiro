@@ -1,24 +1,3 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBniRu4I1epvafxttRsdyfDIpUGT63ytsU",
-  authDomain: "voce-sargento.firebaseapp.com",
-  projectId: "voce-sargento",
-  storageBucket: "voce-sargento.firebasestorage.app",
-  messagingSenderId: "144820811065",
-  appId: "1:144820811065:web:fe0f99e9f57947722724e8",
-  measurementId: "G-5F4EXDDPD0"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -384,6 +363,85 @@ async function init() {
   fetchRanking();
 }
 init();
+<!-- 🔥 INTEGRAÇÃO FIREBASE -->
+<script type="module">
+  // Importando SDKs do Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+  import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, getDocs } 
+    from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } 
+    from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+  // 🔧 COLE SEU CÓDIGO AQUI 👇
+  const firebaseConfig = {
+    apiKey: "SUA_API_KEY_AQUI",
+    authDomain: "SEU_AUTH_DOMAIN",
+    projectId: "SEU_PROJECT_ID",
+    storageBucket: "SEU_BUCKET",
+    messagingSenderId: "SEU_SENDER_ID",
+    appId: "SEU_APP_ID"
+  };
+
+  // Inicializando Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+
+  // 🧠 LÓGICA DE LOGIN
+  async function login() {
+    const nome = document.getElementById('nome').value.trim();
+    const senha = document.getElementById('senha').value.trim();
+    if (!nome || !senha) { alert("Preencha nome e senha!"); return; }
+
+    try {
+      await signInWithEmailAndPassword(auth, nome + "@voce-sargento.com", senha);
+      iniciarApp(nome);
+    } catch (error) {
+      if (error.code === "auth/user-not-found") {
+        await createUserWithEmailAndPassword(auth, nome + "@voce-sargento.com", senha);
+        await setDoc(doc(db, "users", nome), { diasSeguidos: 1, totalHoras: 0 });
+        iniciarApp(nome);
+      } else {
+        alert("Erro no login: " + error.message);
+      }
+    }
+  }
+
+  function iniciarApp(nome) {
+    document.getElementById("login-screen").style.display = "none";
+    document.getElementById("app-screen").style.display = "block";
+    document.getElementById("bemvindo").textContent = "Bem-vindo, " + nome + "!";
+    carregarRanking();
+  }
+
+  // 🏆 Ranking Top 10
+  async function carregarRanking() {
+    const snapshot = await getDocs(collection(db, "users"));
+    const users = [];
+    snapshot.forEach(docSnap => users.push(docSnap.data()));
+
+    users.sort((a, b) => b.diasSeguidos - a.diasSeguidos);
+    const top10 = users.slice(0, 10);
+
+    const rankingDivs = document.querySelectorAll(".ranking");
+    rankingDivs.forEach(div => div.innerHTML = top10.map((u, i) => `
+      <div style="display:flex;justify-content:space-between;margin:5px 0;">
+        <span>${i + 1}º - ${u.nome || "Anônimo"}</span>
+        <span>${u.diasSeguidos} dias</span>
+      </div>
+    `).join(""));
+  }
+
+  // 🟡 Modo Convidado
+  function modoConvidado() {
+    document.getElementById("login-screen").style.display = "none";
+    document.getElementById("app-screen").style.display = "block";
+    document.getElementById("bemvindo").textContent = "Modo Convidado";
+    carregarRanking();
+  }
+
+</script>
+<!-- 🔥 FIM INTEGRAÇÃO FIREBASE -->
 
 </script>
 </body>
