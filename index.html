@@ -1,229 +1,272 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VOCÊ SARGENTO - Cronômetro de Estudos</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at top, #111827, #0b0f19);
-      color: white;
-      font-family: 'Poppins', sans-serif;
-      overflow: hidden;
-    }
-
-    .logo {
-      width: 160px;
-      margin-bottom: 15px;
-      user-select: none;
-    }
-
-    .title {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #d4af37;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .circle {
-      position: relative;
-      width: 340px;
-      height: 340px;
-      border-radius: 50%;
-      background: conic-gradient(#d4af37 0deg, rgba(255, 255, 255, 0.1) 0deg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
-    }
-
-    .inner {
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      background: #111827;
-      border-radius: 50%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .meta {
-      font-size: 1rem;
-      color: #d4af37;
-      margin-bottom: 8px;
-    }
-
-    .time {
-      font-size: 2.5rem;
-      font-weight: 600;
-      color: #f5f5f5;
-      margin-bottom: 15px;
-    }
-
-    .controls {
-      display: flex;
-      gap: 10px;
-    }
-
-    button {
-      background: transparent;
-      border: 2px solid #d4af37;
-      color: #d4af37;
-      padding: 8px 20px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background: #d4af37;
-      color: #111827;
-    }
-
-    .input-container {
-      margin-bottom: 25px;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .input-container input {
-      width: 80px;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: white;
-      font-size: 1rem;
-      border-radius: 8px;
-      text-align: center;
-    }
-
-    .input-container label {
-      color: #d4af37;
-      font-size: 0.9rem;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Você Sargento — Plataforma de Estudos</title>
+<link rel="icon" href="logo.png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+  :root{--accent:#d4af37;--bg1:#071028;--bg2:#0b1422;}
+  *{box-sizing:border-box}
+  body{margin:0;height:100vh;background:linear-gradient(180deg,var(--bg1),var(--bg2));font-family:Poppins,system-ui;display:flex;align-items:center;justify-content:center;color:#fff}
+  .card{width:1060px;max-width:96%;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:14px;padding:26px;box-shadow:0 10px 40px rgba(0,0,0,0.6);display:grid;grid-template-columns:360px 1fr;gap:20px}
+  .left{display:flex;flex-direction:column;align-items:center;gap:18px}
+  .logo{width:180px;height:auto}
+  .streak{color:var(--accent);font-weight:700;font-size:1.1rem}
+  .login-box, .app-box{width:100%}
+  .field{margin-bottom:8px}.field label{display:block;font-size:0.9rem;margin-bottom:6px;color:rgba(255,255,255,0.8)}
+  input[type="text"],input[type="password"],input[type="number"]{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);background:transparent;color:#fff}
+  button{cursor:pointer;border-radius:8px;padding:10px 14px;border:2px solid var(--accent);background:transparent;color:var(--accent);font-weight:700}
+  button.ghost{border-color:rgba(255,255,255,0.12);color:#fff}
+  .small{font-size:0.9rem;color:rgba(255,255,255,0.75)}
+  .timer-card{background:linear-gradient(180deg,#071427,#0a1220);border-radius:12px;padding:18px;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .circle{width:340px;height:340px;border-radius:50%;background:conic-gradient(var(--accent) 0deg, rgba(255,255,255,0.05) 0deg);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+  .inner{width:300px;height:300px;border-radius:50%;background:linear-gradient(180deg,#08121a,#0b1722);display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .meta{color:var(--accent);font-weight:700;margin-bottom:4px}
+  .timebig{font-size:2.8rem;font-weight:800;letter-spacing:1px}
+  .controls{display:flex;gap:8px;margin-top:8px}
+  .inputs-vertical{display:flex;gap:8px;align-items:center}
+  .ranking{background:linear-gradient(180deg,#07121a,#07102a);padding:12px;border-radius:10px;height:100%;overflow:auto}
+  .rank-item{display:flex;justify-content:space-between;padding:8px 6px;border-bottom:1px solid rgba(255,255,255,0.03)}
+  .top{font-weight:700;color:var(--accent)}
+  .header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+  .logout{background:transparent;border:1px solid rgba(255,255,255,0.08);color:#fff;padding:8px 10px;border-radius:8px}
+  @media (max-width:900px){.card{grid-template-columns:1fr;align-items:center} .left{order:2} .app-box{order:1}}
+</style>
 </head>
 <body>
+  <div class="card">
+    <div class="left">
+      <img src="logo.png" alt="Logo" class="logo" id="logoImg">
+      <div class="streak" id="streakDisplay">📅 Constância: 0 dias</div>
+      <div class="small">Usuário atual: <span id="currentUser">—</span></div>
+      <div style="width:100%" id="authArea" class="login-box">
+        <div class="field"><label>Nome de usuário</label><input id="username" type="text" placeholder="ex: micaelrubens"></div>
+        <div class="field"><label>Senha</label><input id="password" type="password" placeholder="senha"></div>
+        <div style="display:flex;gap:8px">
+          <button id="loginBtn">Entrar</button>
+          <button id="registerBtn" class="ghost">Criar conta</button>
+        </div>
+        <div style="margin-top:10px" class="small">Sem servidor — dados salvos no Firebase. Você pode sair e entrar em outro dispositivo.</div>
+      </div>
 
-  <img src="logo.png" alt="Logo Você Sargento" class="logo">
-  <div class="title">VOCÊ SARGENTO</div>
+      <div style="display:none" id="profileArea">
+        <div class="small" style="margin-top:12px">Bem-vindo, <strong id="welcomeName"></strong></div>
+        <div style="margin-top:8px"><button id="logoutBtn" class="logout">Sair</button></div>
+      </div>
+    </div>
 
-  <div class="input-container">
-    <div>
-      <label for="hours">Horas</label><br>
-      <input type="number" id="hours" min="0" max="23" placeholder="0">
-    </div>
-    <div>
-      <label for="minutes">Minutos</label><br>
-      <input type="number" id="minutes" min="0" max="59" placeholder="0">
-    </div>
-    <div>
-      <label for="seconds">Segundos</label><br>
-      <input type="number" id="seconds" min="0" max="59" placeholder="0">
-    </div>
-  </div>
+    <div class="app-box">
+      <div class="timer-card">
+        <div class="header-row">
+          <div style="display:flex;gap:12px;align-items:center">
+            <div class="meta" id="metaDisplay">META: 00:00:00</div>
+            <div class="small">| Total de sessões: <span id="sessionsCount">0</span></div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <div class="small">Top 3:</div>
+            <div id="top3" class="small" style="min-width:180px"></div>
+          </div>
+        </div>
 
-  <div class="circle" id="circle">
-    <div class="inner">
-      <div class="meta" id="meta">META: 00:00:00</div>
-      <div class="time" id="time">00:00:00</div>
-      <div class="controls">
-        <button id="startBtn">Iniciar</button>
-        <button id="pauseBtn">Pausar</button>
-        <button id="resetBtn">Resetar</button>
+        <div style="display:flex;gap:16px;align-items:center">
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:center">
+            <div class="circle" id="circle"><div class="inner">
+              <div class="timebig" id="timeDisplay">00:00:00</div>
+              <div class="controls" id="controls">
+                <div style="display:flex;gap:6px" class="inputs-vertical">
+                  <input id="hours" type="number" min="0" max="23" placeholder="h" style="width:60px">
+                  <input id="minutes" type="number" min="0" max="59" placeholder="min" style="width:60px">
+                  <input id="seconds" type="number" min="0" max="59" placeholder="s" style="width:60px">
+                </div>
+              </div>
+              <div style="margin-top:12px;display:flex;gap:8px">
+                <button id="startBtn">Iniciar</button>
+                <button id="pauseBtn" class="ghost">Pausar</button>
+                <button id="resetBtn" class="ghost">Resetar</button>
+              </div>
+            </div></div>
+          </div>
+
+          <div style="flex:1">
+            <div class="ranking">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                <div class="small">Ranking geral — dias seguidos</div>
+                <div class="small">Total usuários: <span id="totalUsers">0</span></div>
+              </div>
+              <div id="rankingList"></div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 
-  <audio id="alarm" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b8b5f1f65.mp3?filename=alarm-clock-short-6402.mp3"></audio>
+<script type="module">
+// Firebase config (auto-inserted)
+const firebaseConfig = {"apiKey": "AIzaSyBniRu4I1epvafxttRsdyfDIpUGT63ytsU", "authDomain": "voce-sargento.firebaseapp.com", "projectId": "voce-sargento", "storageBucket": "voce-sargento.firebasestorage.app", "messagingSenderId": "144820811065", "appId": "1:144820811065:web:fe0f99e9f57947722724e8", "measurementId": "G-5F4EXDDPD0"};
 
-  <script>
-    const circle = document.getElementById("circle");
-    const timeEl = document.getElementById("time");
-    const metaEl = document.getElementById("meta");
-    const startBtn = document.getElementById("startBtn");
-    const pauseBtn = document.getElementById("pauseBtn");
-    const resetBtn = document.getElementById("resetBtn");
-    const alarm = document.getElementById("alarm");
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+import { getFirestore, collection, doc, getDoc, setDoc, updateDoc, getDocs, query, orderBy, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
-    let totalSeconds = 0;
-    let remaining = 0;
-    let interval = null;
-    let running = false;
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-    function formatTime(sec) {
-      const h = Math.floor(sec / 3600);
-      const m = Math.floor((sec % 3600) / 60);
-      const s = sec % 60;
-      return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
-    }
+const $ = id => document.getElementById(id);
+const usernameInput = $('username'), passwordInput = $('password');
+const loginBtn = $('loginBtn'), registerBtn = $('registerBtn'), logoutBtn = $('logoutBtn');
+const authArea = $('authArea'), profileArea = $('profileArea'), welcomeName = $('welcomeName');
+const currentUserSpan = $('currentUser'), streakDisplay = $('streakDisplay'), metaDisplay = $('metaDisplay');
+const timeDisplay = $('timeDisplay'), startBtn = $('startBtn'), pauseBtn = $('pauseBtn'), resetBtn = $('resetBtn');
+const hoursInput = $('hours'), minutesInput = $('minutes'), secondsInput = $('seconds');
+const rankingList = $('rankingList'), totalUsersSpan = $('totalUsers'), top3Div = $('top3'), sessionsCount = $('sessionsCount');
 
-    function updateDisplay() {
-      const progress = (1 - remaining / totalSeconds) * 360;
-      circle.style.background = `conic-gradient(#d4af37 ${progress}deg, rgba(255,255,255,0.1) ${progress}deg)`;
-      timeEl.textContent = formatTime(remaining);
-    }
+let interval = null, running = false, remaining = 0, totalSeconds = 0;
+let currentUser = null; // { username, id, streak, lastStudy }
 
-    function startTimer() {
-      if (running) return;
+// Utility: SHA-256 hash for storing password (not reversible)
+async function hashPassword(pw) {
+  const enc = new TextEncoder();
+  const hashBuffer = await crypto.subtle.digest('SHA-256', enc.encode(pw));
+  const arr = Array.from(new Uint8Array(hashBuffer));
+  return arr.map(b => b.toString(16).padStart(2,'0')).join('');
+}
 
-      const h = parseInt(document.getElementById("hours").value) || 0;
-      const m = parseInt(document.getElementById("minutes").value) || 0;
-      const s = parseInt(document.getElementById("seconds").value) || 0;
-      totalSeconds = h * 3600 + m * 60 + s;
-      if (totalSeconds <= 0) return alert("Defina um tempo válido!");
+// ====== AUTH: register & login using Firestore 'users' collection ======
+async function registerUser(username, password) {
+  username = username.trim().toLowerCase();
+  if (!username) return alert('Digite um nome de usuário');
+  const userRef = doc(db, 'users', username);
+  const snap = await getDoc(userRef);
+  if (snap.exists()) return alert('Usuário já existe. Faça login ou escolha outro nome.');
+  const pwHash = await hashPassword(password);
+  await setDoc(userRef, { username, pwHash, streak: 0, lastStudy: null, sessions: 0, createdAt: serverTimestamp() });
+  alert('Conta criada. Faça login.');
+}
 
-      remaining = totalSeconds;
-      metaEl.textContent = "META: " + formatTime(totalSeconds);
-      running = true;
+async function loginUser(username, password) {
+  username = username.trim().toLowerCase();
+  if (!username) return alert('Digite seu usuário');
+  const userRef = doc(db, 'users', username);
+  const snap = await getDoc(userRef);
+  if (!snap.exists()) return alert('Usuário não encontrado. Crie uma conta.');
+  const data = snap.data();
+  const pwHash = await hashPassword(password);
+  if (pwHash !== data.pwHash) return alert('Senha incorreta');
+  currentUser = { username, ...data };
+  // Persist session locally
+  localStorage.setItem('vs_currentUser', username);
+  updateUIForLoggedIn();
+  loadUserData();
+  fetchRanking();
+}
 
-      interval = setInterval(() => {
-        remaining--;
-        updateDisplay();
+// Auto-login if was logged before
+async function autoLogin() {
+  const saved = localStorage.getItem('vs_currentUser');
+  if (saved) {
+    const snap = await getDoc(doc(db, 'users', saved));
+    if (snap.exists()) { currentUser = { username: saved, ...snap.data() }; updateUIForLoggedIn(); loadUserData(); fetchRanking(); }
+    else localStorage.removeItem('vs_currentUser');
+  }
+}
 
-        if (remaining <= 0) {
-          clearInterval(interval);
-          running = false;
-          timeEl.textContent = "00:00:00";
-          alarm.play();
-          alert("⏰ Tempo finalizado! Missão cumprida, Sargento!");
-        }
-      }, 1000);
-    }
+// UI updates after login
+function updateUIForLoggedIn() {
+  authArea.style.display = 'none';
+  profileArea.style.display = 'block';
+  welcomeName.textContent = currentUser.username;
+  currentUserSpan.textContent = currentUser.username;
+  updateStreakDisplay();
+}
 
-    function pauseTimer() {
-      if (!running) return;
-      clearInterval(interval);
-      running = false;
-    }
+function logout() {
+  currentUser = null;
+  localStorage.removeItem('vs_currentUser');
+  authArea.style.display = 'block';
+  profileArea.style.display = 'none';
+  currentUserSpan.textContent = '—';
+  streakDisplay.textContent = '📅 Constância: 0 dias';
+}
+logoutBtn.addEventListener('click', logout);
 
-    function resetTimer() {
-      clearInterval(interval);
-      running = false;
-      remaining = totalSeconds;
-      updateDisplay();
-    }
+loginBtn.addEventListener('click', () => loginUser(usernameInput.value, passwordInput.value));
+registerBtn.addEventListener('click', () => registerUser(usernameInput.value, passwordInput.value));
 
-    startBtn.addEventListener("click", startTimer);
-    pauseBtn.addEventListener("click", pauseTimer);
-    resetBtn.addEventListener("click", resetTimer);
-  </script>
+// ===== TIMER LOGIC =====
+function formatTime(sec) {
+  const h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60), s = sec%60;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+function updateCircle(progress) {
+  const circle = document.getElementById('circle');
+  circle.style.background = `conic-gradient(var(--accent) ${progress}deg, rgba(255,255,255,0.05) ${progress}deg)`;
+  timeDisplay.textContent = formatTime(remaining);
+}
+
+startBtn.addEventListener('click', () => { if (!currentUser) return alert('Faça login para começar a estudar'); if (running) return; const h = parseInt(hoursInput.value)||0; const m = parseInt(minutesInput.value)||0; const s = parseInt(secondsInput.value)||0; totalSeconds = h*3600 + m*60 + s; if (totalSeconds <= 0) return alert('Defina um tempo válido'); remaining = totalSeconds; metaDisplay.textContent = 'META: ' + formatTime(totalSeconds); running = true; updateCircle(0); interval = setInterval(async () => { remaining--; const prog = (1 - remaining/totalSeconds)*360; updateCircle(prog); if (remaining <= 0) { clearInterval(interval); running = false; timeDisplay.textContent = '00:00:00'; alert('⏰ Sessão finalizada! Registrando estudo...'); await recordStudy(); fetchRanking(); } } , 1000); });
+
+pauseBtn.addEventListener('click', () => { if (!running) return; clearInterval(interval); running = false; });
+resetBtn.addEventListener('click', () => { clearInterval(interval); running = false; remaining = totalSeconds; updateCircle(0); });
+
+// ===== FIRESTORE: record study & streak logic =====
+async function recordStudy() {
+  if (!currentUser) return;
+  const username = currentUser.username;
+  const userRef = doc(db, 'users', username);
+  const snap = await getDoc(userRef);
+  const data = snap.data();
+  const todayStr = new Date().toDateString();
+  const last = data.lastStudy ? new Date(data.lastStudy).toDateString() : null;
+  let streak = data.streak || 0;
+  // if already studied today, do nothing
+  if (last === todayStr) return;
+  if (last) {
+    const diffDays = Math.round((new Date(todayStr) - new Date(last)) / (1000*60*60*24));
+    if (diffDays === 1) streak = (streak||0) + 1;
+    else streak = 1;
+  } else streak = 1;
+  await updateDoc(userRef, { streak, lastStudy: new Date().toISOString(), sessions: (data.sessions||0)+1 });
+  // refresh local user object and UI
+  const snap2 = await getDoc(userRef);
+  currentUser = { username, ...snap2.data() };
+  updateStreakDisplay();
+}
+
+async function loadUserData() {
+  if (!currentUser) return;
+  const snap = await getDoc(doc(db, 'users', currentUser.username));
+  if (snap.exists()) { currentUser = { username: currentUser.username, ...snap.data() }; updateStreakDisplay(); sessionsCount.textContent = currentUser.sessions||0; }
+}
+
+function updateStreakDisplay() {
+  const s = currentUser?.streak||0;
+  streakDisplay.textContent = `📅 Constância: ${s} dia${s===1?'':'s'}`;
+  sessionsCount.textContent = currentUser?.sessions||0;
+}
+
+// ===== RANKING =====
+async function fetchRanking() {
+  const q = query(collection(db,'users'), orderBy('streak','desc'));
+  const snaps = await getDocs(q);
+  let list = [];
+  snaps.forEach(d => { const data = d.data(); list.push({ username: data.username||d.id, streak: data.streak||0, sessions: data.sessions||0 }); });
+  totalUsersSpan.textContent = list.length;
+  // render list
+  rankingList.innerHTML = '';
+  list.forEach((u, idx) => { const div = document.createElement('div'); div.className = 'rank-item'; div.innerHTML = `<div><strong class="${idx<3?'top':''}">${idx+1}. ${u.username}</strong><div class="small">${u.sessions} sessões</div></div><div class="small">${u.streak} dias</div>`; rankingList.appendChild(div); });
+  // top3 text
+  top3Div.innerHTML = list.slice(0,3).map((u,i)=>`<span style="margin-right:8px">${i+1}º ${u.username} (${u.streak})</span>`).join('');
+}
+
+// Auto-refresh ranking every 30s
+setInterval(fetchRanking, 30000);
+autoLogin();
+fetchRanking();
+
+</script>
 </body>
 </html>

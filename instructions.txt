@@ -1,0 +1,1 @@
+Coloque sua logo como logo.png na raiz do site.
