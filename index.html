@@ -126,11 +126,11 @@ input,select{width:100%;padding:10px;border-radius:8px;border:1px solid var(--mu
 
 <script type="module">
 // Your firebaseConfig (already filled)
-const firebaseConfig = {"apiKey": "AIzaSyBniRu4I1epvafxttRsdyfDIpUGT63ytsU", "authDomain": "voce-sargento.firebaseapp.com", "projectId": "voce-sargento", "storageBucket": "voce-sargento.firebasestorage.app", "messagingSenderId": "144820811065", "appId": "1:144820811065:web:fe0f99e9f57947722724e8", "measurementId": "G-5F4EXDDPD0"};
+const firebaseConfig = {"apiKey": "AIzaSyBniRu4I1epvafxttRsdyfDIpUGT63ytsU", "authDomain": "voce-sargento.firebaseapp.com", "projectId": "voce-sargento", "storageBucket": "voce-sargento.appspot.com", "messagingSenderId": "144820811065", "appId": "1:144820811065:web:fe0f99e9f57947722724e8", "measurementId": "G-5F4EXDDPD0"};
 
-// firebase imports
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-import { getFirestore, collection, doc, getDoc, setDoc, updateDoc, getDocs, query, orderBy, limit, addDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getFirestore, collection, doc, getDoc, setDoc, updateDoc, getDocs, query, orderBy, limit, addDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
